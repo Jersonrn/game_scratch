@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+import os
+import sys
+import subprocess
+
+def build_and_run(mode):
+    if mode not in ['debug', 'release']:
+        print("Invalid mode. Use 'debug' or 'release'.")
+        return
+
+    # Define the compilation commands
+    if mode == 'debug':
+        compile_command = "g++ -c src/*.cpp -std=c++14 -m64 -g -Wall -I include"
+        link_command = "g++ *.o -o bin/debug/main -lSDL2main -lSDL2 -lSDL2_image"
+    else:  # mode == 'release'
+        compile_command = "g++ -c src/*.cpp -std=c++14 -m64 -O3 -Wall -I include"
+        link_command = "g++ *.o -o bin/release/main -s -lSDL2main -lSDL2 -lSDL2_image"
+
+    # Execute the compilation command
+    print(f"Compiling in {mode} mode...")
+    if subprocess.call(compile_command, shell=True) != 0:
+        print("Compilation error.")
+        return
+
+    # Execute the linking command
+    print(f"Linking in {mode} mode...")
+    if subprocess.call(link_command, shell=True) != 0:
+        print("Linking error.")
+        return
+
+    # Execute the program
+    if mode == 'debug':
+        run_command = "./bin/debug/main"
+    else:
+        run_command = "./bin/release/main"
+
+    print(f"Running the program in {mode} mode...\n")
+    subprocess.call(run_command, shell=True)
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python build_and_run.py <mode>")
+        print("Valid modes: debug, release")
+        sys.exit(1)
+
+    mode = sys.argv[1]
+    build_and_run(mode)
+

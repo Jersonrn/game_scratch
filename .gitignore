@@ -1,0 +1,42 @@
+# Object files
+*.o
+
+# Build files
+*.exe
+*.out
+*.app
+
+# Library files
+*.a
+*.so
+*.dll
+
+# IDE configuration files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Backup files
+*~
+*.bak
+
+# System files
+.DS_Store
+Thumbs.db
+
+# CMake build files
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+
+# Other build system files
+build/
+bin/
+
