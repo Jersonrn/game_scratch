@@ -8,7 +8,7 @@ class Game {
         ~Game();
 
         void handleEvents();
-        void init(const char* title, int x, int y, int width, int height, bool fullscreen);
+        int init(const char* title, int x, int y, int width, int height, bool fullscreen);
         void update();
         void render();
         void clean();

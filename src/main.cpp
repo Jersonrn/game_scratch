@@ -1,20 +1,23 @@
+#include <iostream>
+#include <memory>
 #include "Game.hpp"
 #include <SDL2/SDL_video.h>
 
 
-Game *game = nullptr;
-
 int main() {
-    game = new Game();
+    std::unique_ptr<Game> game = std::make_unique<Game>();
 
-    game->init(
+    if (game->init(
             "GameTEST",
             SDL_WINDOWPOS_CENTERED,
             SDL_WINDOWPOS_CENTERED,
             1280,
             720,
             false
-    );
+            ) != 0) {
+        std::cerr << "Error initializing game." <<SDL_GetError() << std::endl;
+        return -1;
+    };
 
     while (game->running()) {
         game->handleEvents();
