@@ -10,7 +10,7 @@ class Game {
 
         void handleEvents();
         int init(const char* title, int x, int y, int width, int height, bool fullscreen);
-        void update();
+        void update(float deltaTime);
         void render();
         void clean();
 

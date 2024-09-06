@@ -96,7 +96,7 @@ void Game::handleEvents(){
     }
 }
 
-void Game::update(){ }
+void Game::update(float deltaTime){ }
 
 void Game::render(){
     SDL_RenderClear(renderer);

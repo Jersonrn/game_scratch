@@ -22,12 +22,18 @@ int main() {
     };
 
     const Uint32 FRAME_DELAY = 1000 / game->MAX_FPS;
+    Uint32 lastFrameTime = SDL_GetTicks();
 
     while (game->running()) {
         Uint32 frameStart = SDL_GetTicks();
 
         game->handleEvents();
-        game->update();
+
+        Uint32 currentFrameTime = SDL_GetTicks();
+        float deltaTime = (currentFrameTime - lastFrameTime) / 1000.0f;
+        lastFrameTime = currentFrameTime;
+
+        game->update(deltaTime);
         game->render();
 
         Uint32 frameTime = SDL_GetTicks() - frameStart;
