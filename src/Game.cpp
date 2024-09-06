@@ -1,3 +1,6 @@
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_surface.h>
+#include <cstddef>
 #include <iostream>
 #include "Game.hpp"
 
@@ -5,6 +8,8 @@
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
+#include <ostream>
+
 
 Game::Game(){
 }
@@ -17,18 +22,62 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
 
         window = SDL_CreateWindow(title, x, y, width, height, flags);
         if (window == NULL) {
-            std::cout << "Window failed to init. Error: " <<SDL_GetError() << std::endl;
+            std::cerr << "Window failed to init. Error: " <<SDL_GetError() << std::endl;
+            return -1;
         }
 
         renderer = SDL_CreateRenderer(window, -1, 0);
         if (renderer){
             std::cout << "Renderer created!" << std::endl;
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        } else {
+            std::cerr << "Renderer failed to init. Error: " <<SDL_GetError() << std::endl;
+            return -1;
         }
+
+        // Background Texture
+        SDL_Surface *tmpSurface = IMG_Load("res/tiles.webp");
+        if (tmpSurface){
+            backgroundTexture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
+            SDL_FreeSurface(tmpSurface);
+
+            if (!backgroundTexture) {
+                std::cerr << "Failed to create background texture. Error: " << SDL_GetError() << std::endl;
+            }
+        } else {
+            std::cerr << "Failed to load image. Error: " << IMG_GetError() << std::endl;
+        }
+
+        // PLAYER
+        // Player Texture
+        tmpSurface = IMG_Load("res/robot.webp");
+        if (tmpSurface) {
+            playerTexture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
+            SDL_FreeSurface(tmpSurface);
+
+            if (!playerTexture) {
+                std::cerr << "Failed to create player texture. Error: " << SDL_GetError() << std::endl;
+            }
+        } else {
+            std::cerr << "Failed to load image. Error: " << IMG_GetError() << std::endl;
+        }
+        playerPositionX = 50;
+        playerPositionY = 100;
+        // Player Rectangle
+        srcR.x = currentFrame * SPRITE_WIDTH; // frame position
+        srcR.y = 0; // Row
+        srcR.w = SPRITE_WIDTH;
+        srcR.h = SPRITE_HEIGHT;
+
+        destR.x = playerPositionX;
+        destR.y = playerPositionY;
+        destR.w = SPRITE_WIDTH;
+        destR.h = SPRITE_HEIGHT;
 
         isRunning = true;
     } else {
         isRunning = false;
+        return -1;
     }
 
     return 0;
@@ -52,12 +101,17 @@ void Game::update(){ }
 void Game::render(){
     SDL_RenderClear(renderer);
     //this is where we would add stuff to render
+    SDL_RenderCopy(renderer, backgroundTexture, NULL, NULL);
+    SDL_RenderCopy(renderer, playerTexture, &srcR, &destR);
     SDL_RenderPresent(renderer);
 }
 
 void Game::clean(){
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
+    if (backgroundTexture){ SDL_DestroyTexture(backgroundTexture); }
+    if (playerTexture){ SDL_DestroyTexture(playerTexture); }
+    IMG_Quit();
     SDL_Quit();
     std::cout << "Game Cleanned" << std::endl;
 }

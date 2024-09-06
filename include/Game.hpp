@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
 
@@ -19,5 +20,17 @@ class Game {
         bool isRunning;
         SDL_Window *window;
         SDL_Renderer *renderer;
+
+
+        SDL_Texture *backgroundTexture;
+
+        SDL_Texture *playerTexture;
+        SDL_Rect srcR, destR;
+        const int SPRITE_WIDTH = 64;
+        const int SPRITE_HEIGHT = 64;
+        int currentFrame = 0;
+
+        float playerPositionX;
+        float playerPositionY;
 };
 
