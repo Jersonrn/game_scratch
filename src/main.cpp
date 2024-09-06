@@ -1,3 +1,5 @@
+#include <SDL2/SDL_stdinc.h>
+#include <SDL2/SDL_timer.h>
 #include <iostream>
 #include <memory>
 #include "Game.hpp"
@@ -19,10 +21,17 @@ int main() {
         return -1;
     };
 
+    const Uint32 FRAME_DELAY = 1000 / game->MAX_FPS;
+
     while (game->running()) {
+        Uint32 frameStart = SDL_GetTicks();
+
         game->handleEvents();
         game->update();
         game->render();
+
+        Uint32 frameTime = SDL_GetTicks() - frameStart;
+        if (frameTime < FRAME_DELAY) { SDL_Delay(FRAME_DELAY - frameTime); }
     }
 
     game->clean();

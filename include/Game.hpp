@@ -15,6 +15,8 @@ class Game {
         void clean();
 
         bool running() { return isRunning; };
+        
+        const int MAX_FPS = 64;
 
     private:
         bool isRunning;
