@@ -2,6 +2,7 @@
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
+#include <Texture.hpp>
 
 class Game {
     public:
@@ -24,7 +25,7 @@ class Game {
         SDL_Renderer *renderer;
 
 
-        SDL_Texture *backgroundTexture;
+        Texture *texture_background = nullptr;
 
         SDL_Texture *playerTexture;
         SDL_Rect srcR, destR;

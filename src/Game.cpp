@@ -35,22 +35,12 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
             return -1;
         }
 
-        // Background Texture
-        SDL_Surface *tmpSurface = IMG_Load("res/tiles.webp");
-        if (tmpSurface){
-            backgroundTexture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
-            SDL_FreeSurface(tmpSurface);
-
-            if (!backgroundTexture) {
-                std::cerr << "Failed to create background texture. Error: " << SDL_GetError() << std::endl;
-            }
-        } else {
-            std::cerr << "Failed to load image. Error: " << IMG_GetError() << std::endl;
-        }
+        texture_background = new Texture();
+        texture_background->load_from_file(renderer, "res/tiles.webp");
 
         // PLAYER
         // Player Texture
-        tmpSurface = IMG_Load("res/robot.webp");
+        SDL_Surface *tmpSurface = IMG_Load("res/robot.webp");
         if (tmpSurface) {
             playerTexture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
             SDL_FreeSurface(tmpSurface);
@@ -101,7 +91,9 @@ void Game::update(float deltaTime){ }
 void Game::render(){
     SDL_RenderClear(renderer);
     //this is where we would add stuff to render
-    SDL_RenderCopy(renderer, backgroundTexture, NULL, NULL);
+    if (texture_background) {
+        texture_background->render(renderer);
+    }
     SDL_RenderCopy(renderer, playerTexture, &srcR, &destR);
     SDL_RenderPresent(renderer);
 }
@@ -109,7 +101,7 @@ void Game::render(){
 void Game::clean(){
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
-    if (backgroundTexture){ SDL_DestroyTexture(backgroundTexture); }
+    if (texture_background) { delete texture_background; }
     if (playerTexture){ SDL_DestroyTexture(playerTexture); }
     IMG_Quit();
     SDL_Quit();
