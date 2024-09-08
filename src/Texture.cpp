@@ -51,3 +51,29 @@ int Texture::load_from_file(
 void Texture::render(SDL_Renderer *renderer){
     SDL_RenderCopy(renderer, texture, &srcRect, &destRect);
 }
+
+// getters
+float Texture::getXPosition() const { return destRect.x; }
+float Texture::getYPosition() const { return destRect.y; }
+float Texture::getXScale() const { return destRect.w; }
+float Texture::getYScale() const { return destRect.h; }
+
+// setters
+void Texture::setXPosition(float x) { this->destRect.x = x; }
+void Texture::setYPosition(float y) { this->destRect.y = y; }
+void Texture::setXScale(float x) {
+    int originalScaleX;
+
+    SDL_QueryTexture(this->texture, nullptr, nullptr, &originalScaleX, nullptr);
+    int newXScale = originalScaleX * x;
+
+    this->destRect.w = newXScale;
+}
+void Texture::setYScale(float y) {
+    int originalScaleY;
+
+    SDL_QueryTexture(this->texture, nullptr, nullptr, nullptr, &originalScaleY);
+    int newXScale = originalScaleY * y;
+
+    this->destRect.h = newXScale;
+}

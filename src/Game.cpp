@@ -37,6 +37,8 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
 
         texture_background = new Texture();
         texture_background->load_from_file(renderer, "res/tiles.webp");
+        texture_background->setXScale(2);
+        texture_background->setYScale(2);
 
         // PLAYER
         // Player Texture

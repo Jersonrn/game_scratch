@@ -14,8 +14,20 @@ class Texture {
                 );
         void render(SDL_Renderer *renderer);
 
-        SDL_Texture *texture;
-        SDL_Rect srcRect, destRect;
+        // getters
+        float getXPosition() const ;
+        float getYPosition() const;
+        float getXScale() const;
+        float getYScale() const;
+
+        // setters
+        void setXPosition(float x);
+        void setYPosition(float y);
+        void setXScale(float x);
+        void setYScale(float y);
+
 
     private:
+        SDL_Texture *texture;
+        SDL_Rect srcRect, destRect;
 };
