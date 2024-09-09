@@ -40,3 +40,6 @@ cmake_install.cmake
 build/
 bin/
 
+.cache/
+compile_commands.json
+help.md
