@@ -41,6 +41,8 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
         texture_background->setXScale(2);
         texture_background->setYScale(2);
 
+        player = new GameObject( renderer, "res/robot.webp", 500, 100, 1, 1, 0, 0, 64, 64);
+
         // PLAYER
         // Player Texture
         SDL_Surface *tmpSurface = IMG_Load("res/robot.webp");
@@ -97,6 +99,9 @@ void Game::render(){
     if (texture_background) {
         texture_background->render(renderer);
     }
+    if (player) {
+        player->render();
+    }
     SDL_RenderCopy(renderer, playerTexture, &srcR, &destR);
     SDL_RenderPresent(renderer);
 }
@@ -106,6 +111,7 @@ void Game::clean(){
     SDL_DestroyRenderer(renderer);
     if (texture_background) { delete texture_background; }
     if (playerTexture){ SDL_DestroyTexture(playerTexture); }
+    if (player) { delete player; }
     IMG_Quit();
     SDL_Quit();
     std::cout << "Game Cleanned" << std::endl;

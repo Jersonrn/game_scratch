@@ -4,6 +4,7 @@
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
 #include <Texture.hpp>
+#include <GameObject.hpp>
 
 class Game {
     public:
@@ -27,6 +28,7 @@ class Game {
 
 
         Texture *texture_background = nullptr;
+        GameObject *player = nullptr;
 
         SDL_Texture *playerTexture;
         SDL_Rect srcR, destR;
