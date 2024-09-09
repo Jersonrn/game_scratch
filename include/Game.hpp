@@ -29,6 +29,7 @@ class Game {
 
         Texture *texture_background = nullptr;
         GameObject *player = nullptr;
+        GameObject *enemy = nullptr;
 
         SDL_Texture *playerTexture;
         SDL_Rect srcR, destR;

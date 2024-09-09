@@ -39,7 +39,8 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
         texture_background = new Texture();
         texture_background->load_from_file(renderer, "res/tiles.webp");
 
-        player = new GameObject( renderer, "res/robot.webp", 500, 100, 1, 1, 0, 0, 64, 64);
+        player = new GameObject(renderer, "res/robot.webp", 500, 100, 1, 1, 0, 0, 64, 64);
+        enemy = new GameObject(renderer, "res/enemy.webp", 100, 200, 1, 1, 0, 0, 128, 128);
 
 
         isRunning = true;
@@ -72,9 +73,10 @@ void Game::render(){
     if (texture_background) {
         texture_background->render(renderer);
     }
-    if (player) {
-        player->render();
-    }
+
+    if (player) { player->render(); }
+    if (enemy) { enemy->render(); }
+
     SDL_RenderCopy(renderer, playerTexture, &srcR, &destR);
     SDL_RenderPresent(renderer);
 }
@@ -85,6 +87,7 @@ void Game::clean(){
     if (texture_background) { delete texture_background; }
     if (playerTexture){ SDL_DestroyTexture(playerTexture); }
     if (player) { delete player; }
+    if (enemy) { delete enemy; }
     IMG_Quit();
     SDL_Quit();
     std::cout << "Game Cleanned" << std::endl;
