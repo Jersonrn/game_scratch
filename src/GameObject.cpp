@@ -37,3 +37,27 @@ void GameObject::render() {
     this->texture->render(this->renderer);
 }
 
+
+// getters
+float GameObject::getXPosition() const { return xPosition; }
+float GameObject::getYPosition() const { return yPosition; }
+float GameObject::getXScale() const { return xScale; }
+float GameObject::getYScale() const { return yScale; }
+
+// setters
+void GameObject::setXPosition( float x ) {
+    this->xPosition = x;
+    this->texture->setXPosition(x);
+}
+void GameObject::setYPosition( float y ) {
+    this->yPosition = y;
+    this->texture->setYPosition(y);
+}
+void GameObject::setXScale( float x ) {
+    this->xScale = x;
+    this->texture->setXScale(x);
+}
+void GameObject::setYScale( float y ) {
+    this->yScale = y;
+    this->texture->setYScale(y);
+}

@@ -18,28 +18,16 @@ class GameObject {
         void render();
 
         // getters
-        float getXPosition() const { return xPosition; }
-        float getYPosition() const { return yPosition; }
-        float getXScale() const { return xScale; }
-        float getYScale() const { return yScale; }
+        float getXPosition() const;
+        float getYPosition() const;
+        float getXScale() const;
+        float getYScale() const;
         
         // setters
-        void setXPosition( float x ) {
-            this->xPosition = x;
-            this->texture->setXPosition(x);
-        }
-        void setYPosition( float y ) {
-            this->yPosition = y;
-            this->texture->setYPosition(y);
-        }
-        void setXScale( float x ) {
-            this->xScale = x;
-            this->texture->setXScale(x);
-        }
-        void setYScale( float y ) {
-            this->yScale = y;
-            this->texture->setYScale(y);
-        }
+        void setXPosition( float x );
+        void setYPosition( float y );
+        void setXScale( float x );
+        void setYScale( float y );
 
 
     private:
