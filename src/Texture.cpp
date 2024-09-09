@@ -45,6 +45,7 @@ int Texture::load_from_file(
     }
 
 
+    std::cout << "Texture created successfully" << std::endl;
     return 0;
 }
 
@@ -62,18 +63,8 @@ float Texture::getYScale() const { return destRect.h; }
 void Texture::setXPosition(float x) { this->destRect.x = x; }
 void Texture::setYPosition(float y) { this->destRect.y = y; }
 void Texture::setXScale(float x) {
-    int originalScaleX;
-
-    SDL_QueryTexture(this->texture, nullptr, nullptr, &originalScaleX, nullptr);
-    int newXScale = originalScaleX * x;
-
-    this->destRect.w = newXScale;
+    this->destRect.w = this->srcRect.w * x;
 }
 void Texture::setYScale(float y) {
-    int originalScaleY;
-
-    SDL_QueryTexture(this->texture, nullptr, nullptr, nullptr, &originalScaleY);
-    int newXScale = originalScaleY * y;
-
-    this->destRect.h = newXScale;
+    this->destRect.h = this->srcRect.h * y;
 }
