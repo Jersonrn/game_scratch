@@ -27,6 +27,8 @@ class Texture {
         void setXScale(float x);
         void setYScale(float y);
 
+        void move(float x, float y);
+
 
     private:
         SDL_Texture *texture;

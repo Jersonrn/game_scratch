@@ -70,3 +70,8 @@ void GameObject::setScale(float x, float y) {
     this->setXScale(x);
     this->setYScale(y);
 }
+void GameObject::move(float x, float y) {
+    this->xPosition += x;
+    this->yPosition += y;
+    this->texture->move(x, y);
+}

@@ -32,6 +32,8 @@ class GameObject {
         void setPosition(float x, float y);
         void setScale(float x, float y);
 
+        void move(float x, float y);
+
     private:
         SDL_Renderer *renderer;
         /* std::shared_ptr<Texture> texture; */

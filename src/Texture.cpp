@@ -68,3 +68,7 @@ void Texture::setXScale(float x) {
 void Texture::setYScale(float y) {
     this->dstRect.h = this->srcRect.h * y;
 }
+void Texture::move(float x, float y) {
+    this->dstRect.x += x;
+    this->dstRect.y += y;
+}
