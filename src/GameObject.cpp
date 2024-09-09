@@ -23,8 +23,6 @@ GameObject::GameObject(
         texture = new Texture();
         texture->load_from_file(this->renderer, pathFile, srcRectX, srcRectY, srcRectW, srcRectH, this->xPosition, this->yPosition, srcRectW * xScale_, srcRectH * yScale_);
 
-        this->setXScale(2);
-        this->setYScale(2);
 }
 
 GameObject::~GameObject() {
