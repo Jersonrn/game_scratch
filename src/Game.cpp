@@ -81,7 +81,6 @@ void Game::render(){
     if (player) { player->render(); }
     if (enemy) { enemy->render(); }
 
-    SDL_RenderCopy(renderer, playerTexture, &srcR, &destR);
     SDL_RenderPresent(renderer);
 }
 
@@ -90,7 +89,6 @@ void Game::clean(){
     SDL_DestroyRenderer(renderer);
 
     if (texture_background) { delete texture_background; }
-    if (playerTexture){ SDL_DestroyTexture(playerTexture); }
     if (player) { delete player; }
     if (enemy) { delete enemy; }
 
