@@ -40,7 +40,7 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
         texture_background->load_from_file(renderer, "res/tiles.webp");
 
         player = new GameObject(renderer, "res/robot.webp", 500, 100, 1, 1, 0, 0, 64, 64);
-        enemy = new GameObject(renderer, "res/enemy.webp", 100, 200, 1, 1, 0, 0, 128, 128);
+        enemy = new GameObject(renderer, "res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);
 
 
         isRunning = true;
@@ -65,14 +65,18 @@ void Game::handleEvents(){
     }
 }
 
-void Game::update(float deltaTime){ }
+void Game::update(float deltaTime){
+
+
+    // apply gravity
+    player->move(0, (32*9.8)*deltaTime);
+    enemy->move(0, (32*9.8)*deltaTime);
+}
 
 void Game::render(){
     SDL_RenderClear(renderer);
     //this is where we would add stuff to render
-    if (texture_background) {
-        texture_background->render(renderer);
-    }
+    if (texture_background) { texture_background->render(renderer); }
 
     if (player) { player->render(); }
     if (enemy) { enemy->render(); }
@@ -84,10 +88,12 @@ void Game::render(){
 void Game::clean(){
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
+
     if (texture_background) { delete texture_background; }
     if (playerTexture){ SDL_DestroyTexture(playerTexture); }
     if (player) { delete player; }
     if (enemy) { delete enemy; }
+
     IMG_Quit();
     SDL_Quit();
     std::cout << "Game Cleanned" << std::endl;
