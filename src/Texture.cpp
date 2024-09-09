@@ -15,7 +15,7 @@ Texture::~Texture(){
 int Texture::load_from_file(
         SDL_Renderer *renderer, const std::string &pathFile,
         int srcRectX, int srcRectY, int srcRectW, int srcRectH,
-        int destRectX, int destRectY, int destRectW, int destRectH) {
+        int dstRectX, int dstRectY, int dstRectW, int dstRectH) {
 
     if (!renderer) {
         std::cerr << "Renderer is null" << std::endl;
@@ -29,10 +29,10 @@ int Texture::load_from_file(
 
         if (texture) {
             SDL_QueryTexture(texture, nullptr, nullptr, srcRectW == -1 ? &srcRectW : nullptr, srcRectH == -1 ? &srcRectH : nullptr);
-            SDL_QueryTexture(texture, nullptr, nullptr, destRectW == -1 ? &destRectW : nullptr, destRectH == -1 ? &destRectH : nullptr);
+            SDL_QueryTexture(texture, nullptr, nullptr, dstRectW == -1 ? &dstRectW : nullptr, dstRectH == -1 ? &dstRectH : nullptr);
 
             srcRect = { srcRectX, srcRectY, srcRectW, srcRectH };
-            dstRect = { destRectX, destRectY, destRectW, destRectH };
+            dstRect = { dstRectX, dstRectY, dstRectW, dstRectH };
 
         } else {
             std::cerr << "Failed to create texture. Error: " << SDL_GetError() << std::endl;
