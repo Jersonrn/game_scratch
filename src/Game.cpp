@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <iostream>
 #include "Game.hpp"
+#include <GameObject.hpp>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
