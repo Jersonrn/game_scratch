@@ -6,7 +6,7 @@
 #include <string>
 
 
-Texture::Texture() : texture(nullptr), srcRect{ 0, 0, 32, 32 }, destRect{ 0, 0, 32, 32 }{}
+Texture::Texture() : texture(nullptr), srcRect{ 0, 0, 32, 32 }, dstRect{ 0, 0, 32, 32 }{}
 Texture::~Texture(){
     SDL_DestroyTexture(texture);
     texture = nullptr;
@@ -32,7 +32,7 @@ int Texture::load_from_file(
             SDL_QueryTexture(texture, nullptr, nullptr, destRectW == -1 ? &destRectW : nullptr, destRectH == -1 ? &destRectH : nullptr);
 
             srcRect = { srcRectX, srcRectY, srcRectW, srcRectH };
-            destRect = { destRectX, destRectY, destRectW, destRectH };
+            dstRect = { destRectX, destRectY, destRectW, destRectH };
 
         } else {
             std::cerr << "Failed to create texture. Error: " << SDL_GetError() << std::endl;
@@ -50,21 +50,21 @@ int Texture::load_from_file(
 }
 
 void Texture::render(SDL_Renderer *renderer){
-    SDL_RenderCopy(renderer, texture, &srcRect, &destRect);
+    SDL_RenderCopy(renderer, texture, &srcRect, &dstRect);
 }
 
 // getters
-float Texture::getXPosition() const { return destRect.x; }
-float Texture::getYPosition() const { return destRect.y; }
-float Texture::getXScale() const { return destRect.w; }
-float Texture::getYScale() const { return destRect.h; }
+float Texture::getXPosition() const { return dstRect.x; }
+float Texture::getYPosition() const { return dstRect.y; }
+float Texture::getXScale() const { return dstRect.w; }
+float Texture::getYScale() const { return dstRect.h; }
 
 // setters
-void Texture::setXPosition(float x) { this->destRect.x = x; }
-void Texture::setYPosition(float y) { this->destRect.y = y; }
+void Texture::setXPosition(float x) { this->dstRect.x = x; }
+void Texture::setYPosition(float y) { this->dstRect.y = y; }
 void Texture::setXScale(float x) {
-    this->destRect.w = this->srcRect.w * x;
+    this->dstRect.w = this->srcRect.w * x;
 }
 void Texture::setYScale(float y) {
-    this->destRect.h = this->srcRect.h * y;
+    this->dstRect.h = this->srcRect.h * y;
 }
