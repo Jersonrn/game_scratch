@@ -38,36 +38,9 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
 
         texture_background = new Texture();
         texture_background->load_from_file(renderer, "res/tiles.webp");
-        texture_background->setXScale(2);
-        texture_background->setYScale(2);
 
         player = new GameObject( renderer, "res/robot.webp", 500, 100, 1, 1, 0, 0, 64, 64);
 
-        // PLAYER
-        // Player Texture
-        SDL_Surface *tmpSurface = IMG_Load("res/robot.webp");
-        if (tmpSurface) {
-            playerTexture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
-            SDL_FreeSurface(tmpSurface);
-
-            if (!playerTexture) {
-                std::cerr << "Failed to create player texture. Error: " << SDL_GetError() << std::endl;
-            }
-        } else {
-            std::cerr << "Failed to load image. Error: " << IMG_GetError() << std::endl;
-        }
-        playerPositionX = 50;
-        playerPositionY = 100;
-        // Player Rectangle
-        srcR.x = currentFrame * SPRITE_WIDTH; // frame position
-        srcR.y = 0; // Row
-        srcR.w = SPRITE_WIDTH;
-        srcR.h = SPRITE_HEIGHT;
-
-        destR.x = playerPositionX;
-        destR.y = playerPositionY;
-        destR.w = SPRITE_WIDTH;
-        destR.h = SPRITE_HEIGHT;
 
         isRunning = true;
     } else {
