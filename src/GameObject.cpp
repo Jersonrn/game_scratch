@@ -61,3 +61,12 @@ void GameObject::setYScale( float y ) {
     this->yScale = y;
     this->texture->setYScale(y);
 }
+
+void GameObject::setPosition(float x, float y) {
+    this->setXPosition(x);
+    this->setYPosition(y);
+}
+void GameObject::setScale(float x, float y) {
+    this->setXScale(x);
+    this->setYScale(y);
+}

@@ -29,6 +29,8 @@ class GameObject {
         void setXScale( float x );
         void setYScale( float y );
 
+        void setPosition(float x, float y);
+        void setScale(float x, float y);
 
     private:
         SDL_Renderer *renderer;
