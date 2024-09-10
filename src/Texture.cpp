@@ -1,3 +1,4 @@
+#include "Game.hpp"
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_render.h>
@@ -13,18 +14,18 @@ Texture::~Texture(){
 }
 
 int Texture::load_from_file(
-        SDL_Renderer *renderer, const std::string &pathFile,
+        const std::string &pathFile,
         int srcRectX, int srcRectY, int srcRectW, int srcRectH,
         int dstRectX, int dstRectY, int dstRectW, int dstRectH) {
 
-    if (!renderer) {
-        std::cerr << "Renderer is null" << std::endl;
+    if (!Game::renderer) {
+        std::cerr << "Game renderer is null" << std::endl;
         return -1;
     }
 
     SDL_Surface *tmpSurface = IMG_Load(pathFile.c_str());
     if (tmpSurface){
-        texture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
+        texture = SDL_CreateTextureFromSurface(Game::renderer, tmpSurface);
         SDL_FreeSurface(tmpSurface);
 
         if (texture) {
@@ -49,8 +50,8 @@ int Texture::load_from_file(
     return 0;
 }
 
-void Texture::render(SDL_Renderer *renderer){
-    SDL_RenderCopy(renderer, texture, &srcRect, &dstRect);
+void Texture::render(){
+    SDL_RenderCopy(Game::renderer, texture, &srcRect, &dstRect);
 }
 
 // getters

@@ -1,3 +1,4 @@
+#include "Game.hpp"
 #include "Texture.hpp"
 #include <GameObject.hpp>
 #include <SDL2/SDL_render.h>
@@ -6,22 +7,20 @@
 
 
 GameObject::GameObject(
-        SDL_Renderer *renderer, const std::string &pathFile,
+        const std::string &pathFile,
         float xPos, float yPos,
         float xScale_, float yScale_,
         int srcRectX, int srcRectY, int srcRectW, int srcRectH )
-    : renderer(renderer), texture(nullptr),
+    : texture(nullptr),
     xPosition(xPos), yPosition(yPos),
     xScale(xScale_), yScale(yScale_) {
 
-        if (renderer) {
-            this->renderer = renderer;
-        } else {
+        if (!Game::renderer) {
             std::cerr << "Renderer is null" << std::endl;
         }
 
         texture = new Texture();
-        texture->load_from_file(this->renderer, pathFile, srcRectX, srcRectY, srcRectW, srcRectH, this->xPosition, this->yPosition, srcRectW * xScale_, srcRectH * yScale_);
+        texture->load_from_file(pathFile, srcRectX, srcRectY, srcRectW, srcRectH, this->xPosition, this->yPosition, srcRectW * xScale_, srcRectH * yScale_);
 
 }
 
@@ -34,7 +33,7 @@ GameObject::~GameObject() {
 void GameObject::update() {}
 
 void GameObject::render() {
-    this->texture->render(this->renderer);
+    this->texture->render();
 }
 
 

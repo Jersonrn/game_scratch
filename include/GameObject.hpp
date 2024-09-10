@@ -8,7 +8,7 @@
 class GameObject {
     public:
         GameObject(
-                SDL_Renderer *renderer, const std::string &pathFile,
+                const std::string &pathFile,
                 float xPos = 0, float yPos = 0,
                 float xScale_ = 1, float yScale_ = 1,
                 int srcRectX = 0, int srcRectY = 0, int srcRectW = -1, int srcRectH = -1
@@ -35,7 +35,6 @@ class GameObject {
         void move(float x, float y);
 
     private:
-        SDL_Renderer *renderer;
         /* std::shared_ptr<Texture> texture; */
         Texture *texture = nullptr;
 

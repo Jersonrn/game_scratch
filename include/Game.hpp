@@ -21,10 +21,11 @@ class Game {
         
         const int MAX_FPS = 64;
 
+        static SDL_Renderer *renderer;
+
     private:
         bool isRunning;
         SDL_Window *window;
-        SDL_Renderer *renderer;
 
 
         Texture *texture_background = nullptr;

@@ -9,11 +9,11 @@ class Texture {
         Texture();
         ~Texture();
         int load_from_file(
-                SDL_Renderer *renderer, const std::string &pathFile,
+                const std::string &pathFile,
                 int srcRectX = 0, int srcRectY = 0, int srcRectW = -1, int srcRectH = -1,
                 int dstRectX = 0, int dstRectY = 0, int dstRectW = -1, int dstRectH = -1
                 );
-        void render(SDL_Renderer *renderer);
+        void render();
 
         // getters
         float getXPosition() const ;

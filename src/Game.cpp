@@ -12,6 +12,8 @@
 #include <ostream>
 
 
+SDL_Renderer* Game::renderer = nullptr;
+
 Game::Game(){
 }
 Game::~Game(){
@@ -37,10 +39,10 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
         }
 
         texture_background = new Texture();
-        texture_background->load_from_file(renderer, "res/tiles.webp");
+        texture_background->load_from_file("res/tiles.webp");
 
-        player = new GameObject(renderer, "res/robot.webp", 500, 100, 1, 1, 0, 0, 64, 64);
-        enemy = new GameObject(renderer, "res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);
+        player = new GameObject("res/robot.webp", 500, 100, 1, 1, 0, 0, 64, 64);
+        enemy = new GameObject("res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);
 
 
         isRunning = true;
@@ -76,7 +78,7 @@ void Game::update(float deltaTime){
 void Game::render(){
     SDL_RenderClear(renderer);
     //this is where we would add stuff to render
-    if (texture_background) { texture_background->render(renderer); }
+    if (texture_background) { texture_background->render(); }
 
     if (player) { player->render(); }
     if (enemy) { enemy->render(); }
