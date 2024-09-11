@@ -27,7 +27,6 @@ class Game {
         bool isRunning;
         SDL_Window *window;
 
-
         Texture *texture_background = nullptr;
         GameObject *player = nullptr;
         GameObject *enemy = nullptr;
