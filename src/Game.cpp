@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <iostream>
 #include "Game.hpp"
+#include "Map.hpp"
 #include <GameObject.hpp>
 
 #include <SDL2/SDL.h>
@@ -40,6 +41,9 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
 
         texture_background = new Texture();
         texture_background->load_from_file("res/tiles.webp");
+
+        this->map = new Map();
+        this->map->loadFromFile("res/map/map.txt");
 
         player = new GameObject("res/robot.webp", 500, 100, 1, 1, 0, 0, 64, 64);
         enemy = new GameObject("res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);

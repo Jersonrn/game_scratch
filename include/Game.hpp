@@ -1,4 +1,5 @@
 #pragma once
+#include "Map.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
@@ -27,7 +28,7 @@ class Game {
         bool isRunning;
         SDL_Window *window;
 
-
+        Map *map = nullptr;
         Texture *texture_background = nullptr;
         GameObject *player = nullptr;
         GameObject *enemy = nullptr;

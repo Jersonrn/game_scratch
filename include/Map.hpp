@@ -1,12 +1,15 @@
 #pragma once
+#include <string>
+#include <vector>
 
 
 class Map {
     public:
         Map();
         ~Map();
-        int load_map();
+        int loadFromFile(const std::string &fileName);
 
     private:
+        std::vector<std::vector<int>> map;
 };
 
