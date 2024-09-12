@@ -11,4 +11,18 @@ class DynamicObject : public GameObject{
                 int srcRectX = 0, int srcRectY = 0, int srcRectW = -1, int srcRectH = -1
                 );
         ~DynamicObject();
+
+        void update(float deltaTime) override;
+
+        void move(float x, float y) override;
+
+        void setVelocity(float x, float y);
+
+        void setDirection(float x, float y);
+
+    private:
+        float xVelocity;
+        float yVelocity;
+        float xDirection;
+        float yDirection;
 };

@@ -30,7 +30,7 @@ GameObject::~GameObject() {
     }
 }
 
-void GameObject::update() {}
+void GameObject::update(float deltaTime) {}
 
 void GameObject::render() {
     this->texture->render();

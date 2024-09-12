@@ -14,7 +14,7 @@ class GameObject {
                 int srcRectX = 0, int srcRectY = 0, int srcRectW = -1, int srcRectH = -1
                 );
         ~GameObject();
-        void update();
+        virtual void update(float deltaTime);
         void render();
 
         // getters
@@ -32,7 +32,7 @@ class GameObject {
         void setPosition(float x, float y);
         void setScale(float x, float y);
 
-        void move(float x, float y);
+        virtual void move(float x, float y);
 
     private:
         /* std::shared_ptr<Texture> texture; */
