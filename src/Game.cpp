@@ -82,7 +82,10 @@ void Game::update(float deltaTime){
 void Game::render(){
     SDL_RenderClear(renderer);
     //this is where we would add stuff to render
-    if (texture_background) { texture_background->render(); }
+
+    /* if (texture_background) { texture_background->render(); } */
+
+    if (this->map) { this->map->render(); }
 
     if (player) { player->render(); }
     if (enemy) { enemy->render(); }

@@ -1,5 +1,8 @@
+#include "Game.hpp"
+#include "StaticObject.hpp"
 #include <Map.hpp>
 #include <cctype>
+#include <cstddef>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -36,3 +39,31 @@ int Map::loadFromFile(const std::string &fileName) {
     return 0;
 }
 
+void Map::render(){
+    for (size_t y = 0 ; y < this->map.size(); ++y) {
+        for (size_t x = 0 ; x < this->map[y].size(); ++x) {
+            int tileID = this->map[y][x];
+
+            //args
+            std::string pathFile = "res/tiles.webp";
+            float xPos = x * 64;
+            float yPos = y * 64;
+            float xScale = 1;
+            float yScale = 1;
+
+            switch (tileID) {
+                case 0:
+                    break;
+                case 1:
+                    float srcRectX = 384;
+                    float srcRectY = 0;
+                    float srcRectW = 64;
+                    float srcRectH = 64;
+
+                    StaticObject block(pathFile, xPos, yPos, xScale, yScale, srcRectX, srcRectY, srcRectW, srcRectH);
+                    block.render();
+            }
+        }
+    }
+    std::cout << "****************************************" << std::endl;
+}

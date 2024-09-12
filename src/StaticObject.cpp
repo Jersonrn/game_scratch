@@ -10,4 +10,6 @@ StaticObject::StaticObject(
         ) : GameObject(pathFile, xPos, yPos, xScale_, yScale_, srcRectX, srcRectY, srcRectW, srcRectH){
 }
 
+StaticObject::~StaticObject() {}
+
 void StaticObject::move(float x, float y) {}
