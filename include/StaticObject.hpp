@@ -12,5 +12,7 @@ class StaticObject : public GameObject {
                 );
         ~StaticObject();
 
+        void move(float x, float y);
+
     private:
 };

@@ -32,7 +32,7 @@ class GameObject {
         void setPosition(float x, float y);
         void setScale(float x, float y);
 
-        void move(float x, float y);
+        virtual void move(float x, float y);
 
     private:
         /* std::shared_ptr<Texture> texture; */
