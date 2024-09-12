@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <iostream>
 #include "Game.hpp"
+#include "DynamicObject.hpp"
 #include "Map.hpp"
 #include <GameObject.hpp>
 
@@ -45,8 +46,8 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
         this->map = new Map();
         this->map->loadFromFile("res/map/map.txt");
 
-        player = new GameObject("res/robot.webp", 500, 100, 1, 1, 0, 0, 64, 64);
-        enemy = new GameObject("res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);
+        player = new DynamicObject("res/robot.webp", 500, 100, 1, 1, 0, 0, 64, 64);
+        enemy = new DynamicObject("res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);
 
 
         isRunning = true;
@@ -74,9 +75,8 @@ void Game::handleEvents(){
 void Game::update(float deltaTime){
 
 
-    // apply gravity
-    player->move(0, (32*9.8)*deltaTime);
-    enemy->move(0, (32*9.8)*deltaTime);
+    player->update(deltaTime);
+    enemy->update(deltaTime);
 }
 
 void Game::render(){

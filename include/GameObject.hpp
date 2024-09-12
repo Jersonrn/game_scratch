@@ -14,7 +14,7 @@ class GameObject {
                 int srcRectX = 0, int srcRectY = 0, int srcRectW = -1, int srcRectH = -1
                 );
         ~GameObject();
-        void update();
+        virtual void update(float deltaTime);
         void render();
 
         // getters
