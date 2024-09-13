@@ -68,6 +68,7 @@ void Map::spawnBlocks() {
             float srcRectY;
             float srcRectW = 64;
             float srcRectH = 64;
+            std::shared_ptr<StaticObject> block;
 
             switch (tileID) {
                 case 0:
@@ -75,8 +76,21 @@ void Map::spawnBlocks() {
                 case 1:
                     srcRectX = 384;
                     srcRectY = 0;
-                    auto block = std::make_shared<StaticObject>("res/tiles.webp", xPos, yPos, xScale, yScale, srcRectX, srcRectY, srcRectW, srcRectH);
+                    block = std::make_shared<StaticObject>("res/tiles.webp", xPos, yPos, xScale, yScale, srcRectX, srcRectY, srcRectW, srcRectH);
                     row.push_back(block);
+                    break;
+                case 2:
+                    srcRectX = 0;
+                    srcRectY = 64;
+                    block = std::make_shared<StaticObject>("res/tiles.webp", xPos, yPos, xScale, yScale, srcRectX, srcRectY, srcRectW, srcRectH);
+                    row.push_back(block);
+                    break;
+                case 3:
+                    srcRectX = 0;
+                    srcRectY = 0;
+                    block = std::make_shared<StaticObject>("res/tiles.webp", xPos, yPos, xScale, yScale, srcRectX, srcRectY, srcRectW, srcRectH);
+                    row.push_back(block);
+                    break;
             }
         }
 
