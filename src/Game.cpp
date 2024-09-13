@@ -12,6 +12,7 @@
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
 #include <ostream>
+#include <vector>
 
 
 SDL_Renderer* Game::renderer = nullptr;
@@ -100,6 +101,7 @@ void Game::clean(){
     if (texture_background) { delete texture_background; }
     if (player) { delete player; }
     if (enemy) { delete enemy; }
+    if (map) { delete map; }
 
     IMG_Quit();
     SDL_Quit();
