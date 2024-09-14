@@ -54,6 +54,9 @@ void Texture::render(){
     SDL_RenderCopy(Game::renderer, texture, &srcRect, &dstRect);
 }
 
+void Texture::update() {
+}
+
 // getters
 float Texture::getXPosition() const { return dstRect.x; }
 float Texture::getYPosition() const { return dstRect.y; }

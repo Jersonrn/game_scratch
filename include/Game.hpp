@@ -1,10 +1,13 @@
 #pragma once
+#include "DynamicObject.hpp"
+#include "Map.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
 #include <Texture.hpp>
 #include <GameObject.hpp>
+
 
 class Game {
     public:
@@ -20,6 +23,8 @@ class Game {
         bool running() { return isRunning; };
         
         const int MAX_FPS = 64;
+        static constexpr float PIXELS_PER_METER = 32.f;
+        static constexpr float GRAVITY_ACCELERATION = 9.8f;
 
         static SDL_Renderer *renderer;
 
@@ -27,8 +32,9 @@ class Game {
         bool isRunning;
         SDL_Window *window;
 
+        Map *map = nullptr;
         Texture *texture_background = nullptr;
-        GameObject *player = nullptr;
-        GameObject *enemy = nullptr;
+        DynamicObject *player = nullptr;
+        DynamicObject *enemy = nullptr;
 };
 

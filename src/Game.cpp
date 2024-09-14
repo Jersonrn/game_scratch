@@ -3,6 +3,8 @@
 #include <cstddef>
 #include <iostream>
 #include "Game.hpp"
+#include "DynamicObject.hpp"
+#include "Map.hpp"
 #include <GameObject.hpp>
 
 #include <SDL2/SDL.h>
@@ -10,6 +12,7 @@
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
 #include <ostream>
+#include <vector>
 
 
 SDL_Renderer* Game::renderer = nullptr;
@@ -41,8 +44,11 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
         this->texture_background = new Texture();
         this->texture_background->load_from_file("res/tiles.webp");
 
-        this->player = new GameObject("res/robot.webp", 500, 100, 1, 1, 0, 0, 64, 64);
-        this->enemy = new GameObject("res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);
+        this->map = new Map();
+        this->map->loadFromFile("res/map/map.txt");
+
+        this->player = new DynamicObject("res/robot.webp", 500, 100, 1, 1, 0, 0, 64, 64);
+        this->enemy = new DynamicObject("res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);
 
 
         this->isRunning = true;
@@ -70,15 +76,15 @@ void Game::handleEvents(){
 void Game::update(float deltaTime){
 
 
-    // apply gravity
-    this->player->move(0, (32*9.8)*deltaTime);
-    this->enemy->move(0, (32*9.8)*deltaTime);
+
+    this->player->update(deltaTime);
+    this->enemy->update(deltaTime);
 }
 
 void Game::render(){
     SDL_RenderClear(this->renderer);
     //this is where we would add stuff to render
-    if (this->texture_background) { this->texture_background->render(); }
+    if (this->map) { this->map->render(); }
 
     if (this->player) { this->player->render(); }
     if (this->enemy) { this->enemy->render(); }
@@ -93,6 +99,7 @@ void Game::clean(){
     if (this->texture_background) { delete this->texture_background; }
     if (this->player) { delete this->player; }
     if (this->enemy) { delete this->enemy; }
+    if (this->map) { delete this->map; }
 
     IMG_Quit();
     SDL_Quit();

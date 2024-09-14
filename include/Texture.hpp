@@ -14,6 +14,7 @@ class Texture {
                 int dstRectX = 0, int dstRectY = 0, int dstRectW = -1, int dstRectH = -1
                 );
         void render();
+        void update();
 
         // getters
         float getXPosition() const ;
