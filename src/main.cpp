@@ -1,10 +1,14 @@
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_timer.h>
+#include <cstddef>
 #include <iostream>
 #include <memory>
 #include "Game.hpp"
 #include <SDL2/SDL_video.h>
+#include <utils.hpp>
 
+
+std::size_t Entity::counter = 0;
 
 int main() {
     std::unique_ptr<Game> game = std::make_unique<Game>();
@@ -21,7 +25,7 @@ int main() {
         return -1;
     };
 
-    const Uint32 FRAME_DELAY = 1000 / game->MAX_FPS;
+    const Uint32 FRAME_DELAY = 1000 / MAX_FPS;
     Uint32 lastFrameTime = SDL_GetTicks();
 
     while (game->running()) {

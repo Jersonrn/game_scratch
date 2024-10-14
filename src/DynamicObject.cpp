@@ -1,6 +1,7 @@
 #include "Game.hpp"
 #include "GameObject.hpp"
 #include <DynamicObject.hpp>
+#include <utils.hpp>
 
 
 DynamicObject::DynamicObject(
@@ -20,7 +21,7 @@ void DynamicObject::update(float deltaTime) {
 
 
     //APPLY GRAVITY
-    float gravityInPixelsPerSecondSquared = (Game::GRAVITY_ACCELERATION * Game::PIXELS_PER_METER);
+    float gravityInPixelsPerSecondSquared = (GRAVITY_ACCELERATION * PIXELS_PER_METER);
     float verticalMovement = gravityInPixelsPerSecondSquared * deltaTime;
     GameObject::move(0., verticalMovement);
 }

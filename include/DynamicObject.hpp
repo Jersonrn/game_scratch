@@ -10,7 +10,7 @@ class DynamicObject : public GameObject{
                 float xScale_ = 1, float yScale_ = 1,
                 int srcRectX = 0, int srcRectY = 0, int srcRectW = -1, int srcRectH = -1
                 );
-        ~DynamicObject();
+        virtual ~DynamicObject();
 
         void update(float deltaTime) override;
 

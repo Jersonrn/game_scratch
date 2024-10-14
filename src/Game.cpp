@@ -2,8 +2,10 @@
 #include <SDL2/SDL_surface.h>
 #include <cstddef>
 #include <iostream>
+
 #include "Game.hpp"
 #include "DynamicObject.hpp"
+#include "Entity.hpp"
 #include "Map.hpp"
 #include <GameObject.hpp>
 
@@ -11,7 +13,9 @@
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
+#include <memory>
 #include <ostream>
+#include <unordered_map>
 #include <vector>
 
 
@@ -41,6 +45,8 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
             return -1;
         }
 
+        this->ptrArchetypes = std::make_shared<std::unordered_map<ComponentBitset, std::vector<std::shared_ptr<Entity>>, BitsetHash>>();
+
         this->texture_background = new Texture();
         this->texture_background->load_from_file("res/tiles.webp");
 
@@ -49,6 +55,9 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
 
         this->player = new DynamicObject("res/robot.webp", 500, 100, 1, 1, 0, 0, 64, 64);
         this->enemy = new DynamicObject("res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);
+        this->entidad = std::make_shared<Entity>(this->ptrArchetypes);
+        this->entidad->addComponent<Velocity>(2., 3.);
+        this->entidad->addComponent<Position>(6., 9.);
 
 
         this->isRunning = true;

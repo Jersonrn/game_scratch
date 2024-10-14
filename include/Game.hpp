@@ -1,12 +1,19 @@
 #pragma once
 #include "DynamicObject.hpp"
+#include "Entity.hpp"
 #include "Map.hpp"
+#include <utils.hpp>
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
 #include <Texture.hpp>
 #include <GameObject.hpp>
+#include <bitset>
+#include <memory>
+#include <unordered_map>
+#include <vector>
 
 
 class Game {
@@ -22,9 +29,7 @@ class Game {
 
         bool running() { return isRunning; };
         
-        const int MAX_FPS = 64;
-        static constexpr float PIXELS_PER_METER = 32.f;
-        static constexpr float GRAVITY_ACCELERATION = 9.8f;
+        std::shared_ptr<std::unordered_map<ComponentBitset, std::vector<std::shared_ptr<Entity>>, BitsetHash>> ptrArchetypes;
 
         static SDL_Renderer *renderer;
 
@@ -36,5 +41,6 @@ class Game {
         Texture *texture_background = nullptr;
         DynamicObject *player = nullptr;
         DynamicObject *enemy = nullptr;
+        std::shared_ptr<Entity> entidad;
 };
 

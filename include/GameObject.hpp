@@ -13,7 +13,7 @@ class GameObject {
                 float xScale_ = 1, float yScale_ = 1,
                 int srcRectX = 0, int srcRectY = 0, int srcRectW = -1, int srcRectH = -1
                 );
-        ~GameObject();
+        virtual ~GameObject();
         virtual void update(float deltaTime);
         void render();
 
