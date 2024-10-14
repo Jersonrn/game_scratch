@@ -22,3 +22,8 @@ Position::~Position() {};
 
 
 //HEALTH
+
+
+//RENDER
+Render::Render() {};
+Render::~Render() {};

@@ -7,6 +7,7 @@
 #include "DynamicObject.hpp"
 #include "Entity.hpp"
 #include "Map.hpp"
+#include "utils.hpp"
 #include <GameObject.hpp>
 
 #include <SDL2/SDL.h>
@@ -55,9 +56,12 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
 
         this->player = new DynamicObject("res/robot.webp", 500, 100, 1, 1, 0, 0, 64, 64);
         this->enemy = new DynamicObject("res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);
-        this->entidad = std::make_shared<Entity>(this->ptrArchetypes);
+
+        this->entidad = std::make_shared<Entity>(this->ptrArchetypes, "res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);
         this->entidad->addComponent<Velocity>(2., 3.);
         this->entidad->addComponent<Position>(6., 9.);
+        this->entidad->addComponent<Render>();
+        std::cout << ( *this->ptrArchetypes )[getComponentBitset<Position>()][0]->getComponent<Position>()->y << std::endl;;
 
 
         this->isRunning = true;
@@ -92,6 +96,11 @@ void Game::update(float deltaTime){
 
 void Game::render(){
     SDL_RenderClear(this->renderer);
+
+    for (const auto &e : (*this->ptrArchetypes)[getComponentBitset<Render>()]) {
+        e->render();
+    }
+
     //this is where we would add stuff to render
     if (this->map) { this->map->render(); }
 

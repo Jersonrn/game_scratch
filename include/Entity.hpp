@@ -1,7 +1,9 @@
 #pragma once
+#include "Texture.hpp"
 #include <cstddef>
 #include <iostream>
 #include <memory>
+#include <string>
 #include <unordered_map>
 #include <vector>
 #include <utils.hpp>
@@ -24,19 +26,26 @@ class Entity: public std::enable_shared_from_this<Entity> {
 
     public:
         std::vector<std::unique_ptr<Component>> components;
+        std::unique_ptr<Texture> texture;
 
         Entity(
             std::shared_ptr<std::unordered_map<
                 ComponentBitset,
                 std::vector<std::shared_ptr<Entity>>,
                 BitsetHash
-            >> ptrArchetypes
+            >> ptrArchetypes,
+            const std::string &pathFile,
+            float xPos = 0, float yPos = 0,
+            float xScale_ = 1, float yScale_ = 1,
+            int srcRectX = 0, int srcRectY = 0, int srcRectW = -1, int srcRectH = -1
         );
         virtual ~Entity();
 
         std::size_t getID();
         bool isActive();
         void destroy();
+        void render();
+
 
 
         //TEMPLATES

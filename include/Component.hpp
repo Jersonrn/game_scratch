@@ -27,3 +27,9 @@ class Position: public Component {
         Position(float x, float y);
         virtual ~Position();
 };
+
+class Render: public Component {
+    public:
+        Render();
+        virtual ~Render();
+};

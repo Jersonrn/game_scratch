@@ -1,8 +1,10 @@
 #include "Entity.hpp"
+#include "Texture.hpp"
 #include "utils.hpp"
 #include <cstddef>
 #include <iostream>
 #include <memory>
+#include <string>
 #include <unordered_map>
 #include <vector>
 
@@ -13,9 +15,15 @@ Entity::Entity(
             ComponentBitset,
             std::vector<std::shared_ptr<Entity>>,
             BitsetHash
-        >> ptrArchetypes
+        >> ptrArchetypes,
+        const std::string &pathFile,
+        float xPos, float yPos,
+        float xScale, float yScale,
+        int srcRectX, int srcRectY, int srcRectW, int srcRectH
         ) : ptrArchetypes(ptrArchetypes), components(MAXCOMPONENTS) {
     this->ID = ++counter;
+    this->texture = std::make_unique<Texture>();
+    this->texture->load_from_file(pathFile, srcRectX, srcRectY, srcRectW, srcRectH, xPos, yPos, srcRectW * xScale, srcRectH * yScale);
 }
 
 Entity::~Entity(){}
@@ -26,3 +34,5 @@ std::size_t Entity::getID() { return this->ID; }
 bool Entity::isActive() { return this->active; }
 
 void Entity::destroy() { this->active = false; }
+
+void Entity::render() { this->texture->render(); }
