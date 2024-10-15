@@ -1,6 +1,7 @@
 #pragma once
 #include "DynamicObject.hpp"
 #include "Entity.hpp"
+#include <System.hpp>
 #include "Map.hpp"
 #include <utils.hpp>
 
@@ -42,5 +43,6 @@ class Game {
         DynamicObject *player = nullptr;
         DynamicObject *enemy = nullptr;
         std::shared_ptr<Entity> entidad;
+        std::unique_ptr<MovementSystem> movementSystem;
 };
 

@@ -46,6 +46,8 @@ class Entity: public std::enable_shared_from_this<Entity> {
         void destroy();
         void render();
 
+        void updatePosition(float deltaTime);
+
 
 
         //TEMPLATES

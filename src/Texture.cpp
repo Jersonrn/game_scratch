@@ -46,7 +46,6 @@ int Texture::load_from_file(
     }
 
 
-    std::cout << "Texture created successfully" << std::endl;
     return 0;
 }
 

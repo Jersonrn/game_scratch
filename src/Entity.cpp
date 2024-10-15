@@ -36,3 +36,15 @@ bool Entity::isActive() { return this->active; }
 void Entity::destroy() { this->active = false; }
 
 void Entity::render() { this->texture->render(); }
+
+void Entity::updatePosition(float deltaTime) {
+    Position *positionComponent = getComponent<Position>();
+    Velocity *velocityComponent = getComponent<Velocity>();
+
+    positionComponent->x += velocityComponent->x * deltaTime;
+    positionComponent->y += velocityComponent->y * deltaTime;
+
+    this->texture->setXPosition(positionComponent->x);
+    this->texture->setYPosition(positionComponent->y);
+
+}

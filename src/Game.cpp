@@ -58,10 +58,10 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
         this->enemy = new DynamicObject("res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);
 
         this->entidad = std::make_shared<Entity>(this->ptrArchetypes, "res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);
-        this->entidad->addComponent<Velocity>(2., 3.);
-        this->entidad->addComponent<Position>(6., 9.);
+        this->entidad->addComponent<Velocity>(0., 100.);
+        this->entidad->addComponent<Position>(400., 9.);
         this->entidad->addComponent<Render>();
-        std::cout << ( *this->ptrArchetypes )[getComponentBitset<Position>()][0]->getComponent<Position>()->y << std::endl;;
+        this->movementSystem = std::make_unique<MovementSystem>(this->ptrArchetypes);
 
 
         this->isRunning = true;
@@ -92,20 +92,20 @@ void Game::update(float deltaTime){
 
     this->player->update(deltaTime);
     this->enemy->update(deltaTime);
+    this->movementSystem->update(deltaTime);
 }
 
 void Game::render(){
     SDL_RenderClear(this->renderer);
 
-    for (const auto &e : (*this->ptrArchetypes)[getComponentBitset<Render>()]) {
-        e->render();
-    }
-
-    //this is where we would add stuff to render
     if (this->map) { this->map->render(); }
 
     if (this->player) { this->player->render(); }
     if (this->enemy) { this->enemy->render(); }
+
+    for (const auto &e : (*this->ptrArchetypes)[getComponentBitset<Render>()]) {
+        e->render();
+    }
 
     SDL_RenderPresent(this->renderer);
 }
