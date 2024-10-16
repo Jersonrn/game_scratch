@@ -54,14 +54,12 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
         this->map = new Map();
         this->map->loadFromFile("res/map/map.txt");
 
-        this->player = new DynamicObject("res/robot.webp", 500, 100, 1, 1, 0, 0, 64, 64);
-        this->enemy = new DynamicObject("res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);
+        this->movementSystem = std::make_unique<MovementSystem>(this->ptrArchetypes);
 
         this->entidad = std::make_shared<Entity>(this->ptrArchetypes, "res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);
         this->entidad->addComponent<Velocity>(0., 100.);
         this->entidad->addComponent<Position>(400., 9.);
         this->entidad->addComponent<Render>();
-        this->movementSystem = std::make_unique<MovementSystem>(this->ptrArchetypes);
 
 
         this->isRunning = true;
@@ -88,10 +86,6 @@ void Game::handleEvents(){
 
 void Game::update(float deltaTime){
 
-
-
-    this->player->update(deltaTime);
-    this->enemy->update(deltaTime);
     this->movementSystem->update(deltaTime);
 }
 
@@ -99,9 +93,6 @@ void Game::render(){
     SDL_RenderClear(this->renderer);
 
     if (this->map) { this->map->render(); }
-
-    if (this->player) { this->player->render(); }
-    if (this->enemy) { this->enemy->render(); }
 
     for (const auto &e : (*this->ptrArchetypes)[getComponentBitset<Render>()]) {
         e->render();
@@ -115,8 +106,6 @@ void Game::clean(){
     SDL_DestroyRenderer(this->renderer);
 
     if (this->texture_background) { delete this->texture_background; }
-    if (this->player) { delete this->player; }
-    if (this->enemy) { delete this->enemy; }
     if (this->map) { delete this->map; }
 
     IMG_Quit();
