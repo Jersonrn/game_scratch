@@ -1,6 +1,7 @@
 #pragma once
 #include <bitset>
 #include <cstddef>
+#include <iostream>
 #include <memory>
 #include <unordered_map>
 #include <vector>
@@ -30,7 +31,7 @@ struct BitsetHash {
 };
 
 
-static std::size_t lastComponentID = 0;
+extern std::size_t lastComponentID;
 
 template <class T>
 typename std::enable_if<std::is_base_of<Component, T>::value, std::size_t>::type
@@ -38,6 +39,7 @@ getComponentID() {
     static std::size_t typeID = lastComponentID++;
     return typeID;
 };
+
 template <class T>
 typename std::enable_if<std::is_base_of<Component, T>::value, ComponentBitset>::type
 getComponentBitset() {

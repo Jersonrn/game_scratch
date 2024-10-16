@@ -1,7 +1,4 @@
-#include <utils.hpp>
+#include "utils.hpp"
 
+std::size_t lastComponentID = 0;
 
-/* std::size_t getEntityID() { */
-/*     static std::size_t nextEntityID = 0; */
-/*     return nextEntityID++; */
-/* } */

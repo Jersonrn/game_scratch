@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "Game.hpp"
+#include "Component.hpp"
 #include "DynamicObject.hpp"
 #include "Entity.hpp"
 #include "Map.hpp"
@@ -57,8 +58,10 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
         this->movementSystem = std::make_unique<MovementSystem>(this->ptrArchetypes);
 
         this->entidad = std::make_shared<Entity>(this->ptrArchetypes, "res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);
+        this->entidad->addComponent<Sprite>("res/enemy.webp", 0, 0, 128, 128);
         this->entidad->addComponent<Velocity>(0., 100.);
-        this->entidad->addComponent<Position>(400., 9.);
+        this->entidad->addComponent<Position>(200., 100.);
+        this->entidad->addComponent<Scale>(1., 1.);
         this->entidad->addComponent<Render>();
 
 

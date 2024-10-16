@@ -17,7 +17,6 @@ class Entity: public std::enable_shared_from_this<Entity> {
         std::size_t ID;
         static std::size_t counter;
 
-        ComponentBitset componentBitset;
         std::shared_ptr<std::unordered_map<
             ComponentBitset,
             std::vector<std::shared_ptr<Entity>>,
@@ -25,6 +24,7 @@ class Entity: public std::enable_shared_from_this<Entity> {
         >> ptrArchetypes;
 
     public:
+        ComponentBitset componentBitset;
         std::vector<std::unique_ptr<Component>> components;
         std::unique_ptr<Texture> texture;
 
@@ -55,21 +55,27 @@ class Entity: public std::enable_shared_from_this<Entity> {
         template<class T, class... TArgs>
         typename std::enable_if<std::is_base_of<Component, T>::value, void>::type
         addComponent(TArgs&&... Args) {
+            std::shared_ptr<Entity> self = shared_from_this();
+
             if (!this->hasComponent<T>()) {
                 int ID = getComponentID<T>();
 
-                this->components[ID] = std::make_unique<T>(std::forward<TArgs>(Args)...);
+                this->components[ID] = std::make_unique<T>(self, std::forward<TArgs>(Args)...);
                 this->componentBitset[ID] = true;
 
             }
+
+            //adding the entity to their respective archetypes
             if (!this->inArchetype<T>()) {
-                std::shared_ptr<Entity> self = shared_from_this();
                 (*this->ptrArchetypes)[getComponentBitset<T>()].push_back(self);
             }
-            ComponentBitset bitset = getComponentBitset<T>() | this->componentBitset;
-            if (!this->inArchetype(bitset)) {
-                std::shared_ptr<Entity> self = shared_from_this();
-                (*this->ptrArchetypes)[bitset].push_back(self);
+
+            //adding the entity to PositionVelocity Archetype
+            if (this->hasComponent<Velocity>() && this->hasComponent<Position>()) {
+                ComponentBitset bitset = getComponentBitset<Velocity>() | getComponentBitset<Position>();
+                if (!this->inArchetype(bitset)) {
+                    (*this->ptrArchetypes)[bitset].push_back(self);
+                }
             }
         };
 

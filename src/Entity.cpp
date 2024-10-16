@@ -1,4 +1,4 @@
-#include "Entity.hpp"
+#include <Entity.hpp>
 #include "Texture.hpp"
 #include "utils.hpp"
 #include <cstddef>
@@ -23,7 +23,7 @@ Entity::Entity(
         ) : ptrArchetypes(ptrArchetypes), components(MAXCOMPONENTS) {
     this->ID = ++counter;
     this->texture = std::make_unique<Texture>();
-    this->texture->load_from_file(pathFile, srcRectX, srcRectY, srcRectW, srcRectH, xPos, yPos, srcRectW * xScale, srcRectH * yScale);
+    /* this->texture->load_from_file(pathFile, srcRectX, srcRectY, srcRectW, srcRectH, xPos, yPos, srcRectW * xScale, srcRectH * yScale); */
 }
 
 Entity::~Entity(){}
@@ -44,6 +44,8 @@ void Entity::updatePosition(float deltaTime) {
     positionComponent->x += velocityComponent->x * deltaTime;
     positionComponent->y += velocityComponent->y * deltaTime;
 
+    // I would create a update method on Position Component and then:
+    // this->entity->texture->setXPosition(this->x)
     this->texture->setXPosition(positionComponent->x);
     this->texture->setYPosition(positionComponent->y);
 

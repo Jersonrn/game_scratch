@@ -8,6 +8,10 @@ def build_and_run(mode):
         print("Invalid mode. Use 'debug' or 'release'.")
         return
 
+    # Clean up object files before compiling
+    clean_command = "rm -f *.o"
+    subprocess.call(clean_command, shell=True)
+
     # Define the compilation commands
     if mode == 'debug':
         compile_command = "g++ -c src/*.cpp -std=c++14 -m64 -g -Wall -I include"
@@ -45,4 +49,3 @@ if __name__ == "__main__":
 
     mode = sys.argv[1]
     build_and_run(mode)
-

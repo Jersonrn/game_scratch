@@ -46,6 +46,7 @@ int Texture::load_from_file(
     }
 
 
+    /* std::cout << pathFile << std::endl; */
     return 0;
 }
 
