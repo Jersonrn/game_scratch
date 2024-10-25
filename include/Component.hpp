@@ -1,4 +1,5 @@
 #pragma once
+#include <SDL2/SDL_rect.h>
 #include <cstddef>
 #include <memory>
 #include <string>
@@ -29,11 +30,12 @@ class Velocity: public Component {
 
 class Position: public Component {
     public:
-        float x;
-        float y;
-
         Position(std::shared_ptr<Entity> entity, float x, float y);
         virtual ~Position();
+
+        float x();
+        float y();
+        void update(float x, float y);
 };
 
 class Scale: public Component {
@@ -43,6 +45,20 @@ class Scale: public Component {
 
         Scale(std::shared_ptr<Entity> entity, float x, float y);
         virtual ~Scale();
+};
+
+class Collision: public Component {
+    public:
+        SDL_Rect colRect;
+
+        Collision(std::shared_ptr<Entity> entity, int x, int w, int y, int h);
+        virtual ~Collision();
+
+        void update();
+
+        bool hasCollision(SDL_Rect* B);
+
+        SDL_Rect* getRect();
 };
 
 class Sprite: public Component {

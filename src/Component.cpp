@@ -1,5 +1,6 @@
 #include <Entity.hpp>
 #include <Component.hpp>
+#include <SDL2/SDL_rect.h>
 #include <cstddef>
 #include <iostream>
 #include <memory>
@@ -27,12 +28,20 @@ Velocity::~Velocity() {};
 
 //POSITION
 Position::Position(std::shared_ptr<Entity> entity,float x, float y)
-    : Component(entity), x(x), y(y) {
+    : Component(entity) {
         this->entity->texture->setXPosition(x);
         this->entity->texture->setYPosition(y);
     };
 
 Position::~Position() {};
+
+float Position::x() { return this->entity->texture->getXPosition(); }
+float Position::y() { return this->entity->texture->getYPosition(); }
+
+void Position::update(float x, float y) {
+    this->entity->texture->setXPosition(x);
+    this->entity->texture->setYPosition(y);
+};
 
 
 //SCALE
@@ -43,6 +52,32 @@ Scale::Scale(std::shared_ptr<Entity> entity,float x, float y)
     };
 
 Scale::~Scale() {};
+
+
+//COLLISION
+Collision::Collision(std::shared_ptr<Entity> entity,int x, int w, int y, int h)
+    : Component(entity) {
+        this->colRect = { x, y, w, h };
+    };
+
+Collision::~Collision() {};
+
+void Collision::update() {
+    int x = this->entity->texture->getXPosition();
+    int y = this->entity->texture->getYPosition();
+    int w = this->entity->texture->getXScale();
+    int h = this->entity->texture->getYScale();
+
+    this->colRect = {x, y, w, h};
+};
+
+bool Collision::hasCollision(SDL_Rect *B) {
+    return SDL_HasIntersection(this->getRect(), B);
+};
+
+SDL_Rect* Collision::getRect() {
+    return &this->colRect;
+};
 
 
 //SPRITE

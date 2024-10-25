@@ -57,14 +57,22 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
 
         this->movementSystem = std::make_unique<MovementSystem>(this->ptrArchetypes);
 
+        this->enemy = std::make_shared<Entity>(this->ptrArchetypes, "res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);
+        this->enemy->addComponent<Sprite>("res/enemy.webp", 0, 0, 128, 128);
+        this->enemy->addComponent<Position>(500., 302.);
+        this->enemy->addComponent<Scale>(1., 1.);
+        this->enemy->addComponent<Collision>(500, 128, 302, 128);
+        this->enemy->addComponent<Render>();
+
         this->entidad = std::make_shared<Entity>(this->ptrArchetypes, "res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);
         this->entidad->addComponent<Sprite>("res/enemy.webp", 0, 0, 128, 128);
         this->entidad->addComponent<Velocity>(-50., 0.);
         this->entidad->addComponent<Position>(800., 302.);
         this->entidad->addComponent<Scale>(1., 1.);
+        this->entidad->addComponent<Collision>(800., 128., 302, 128);
         this->entidad->addComponent<Render>();
         this->entidad->addComponent<Animator>();
-        this->entidad->getComponent<Animator>()->loadAnimationFromJSON("res/anim/idleEnemy.json");
+        this->entidad->getComponent<Animator>()->loadAnimationFromJSON("res/anim/walkEnemy.json");
         this->entidad->getComponent<Animator>()->setAnimation("WALK");
 
 

@@ -41,12 +41,11 @@ void Entity::updatePosition(float deltaTime) {
     Position *positionComponent = getComponent<Position>();
     Velocity *velocityComponent = getComponent<Velocity>();
 
-    positionComponent->x += velocityComponent->x * deltaTime;
-    positionComponent->y += velocityComponent->y * deltaTime;
+    float posX = positionComponent->x();
+    float posY = positionComponent->y();
 
-    // I would create a update method on Position Component and then:
-    // this->entity->texture->setXPosition(this->x)
-    this->texture->setXPosition(positionComponent->x);
-    this->texture->setYPosition(positionComponent->y);
+    posX += velocityComponent->x * deltaTime;
+    posY += velocityComponent->y * deltaTime;
 
+    positionComponent->update(posX, posY);
 }

@@ -40,6 +40,7 @@ class Game {
         Map *map = nullptr;
         Texture *texture_background = nullptr;
         std::shared_ptr<Entity> entidad;
+        std::shared_ptr<Entity> enemy;
         std::unique_ptr<MovementSystem> movementSystem;
 };
 

@@ -1,5 +1,6 @@
 #include "Entity.hpp"
 #include "utils.hpp"
+#include <SDL2/SDL_rect.h>
 #include <System.hpp>
 
 
@@ -33,8 +34,31 @@ void MovementSystem::update(){};
 
 void MovementSystem::update(float deltaTime) {
     ComponentBitset bitset = getComponentBitset<Position>() | getComponentBitset<Velocity>();
+
     for (const auto &e : (*this->ptrArchetypes)[bitset]) {
+        Position* posComponent = e->getComponent<Position>();
+        float xPos = posComponent->x();
+        float yPos = posComponent->y();
+
         e->updatePosition(deltaTime);
+
+        if (e->hasComponent<Collision>()) {
+            Collision* colComponent = e->getComponent<Collision>();
+            colComponent->update();
+
+            ComponentBitset colBitset = getComponentBitset<Collision>();
+            for (const auto& colEntity : (*this->ptrArchetypes)[colBitset]) {
+                if (colEntity->getID() != e->getID()) {
+                    SDL_Rect* B = colEntity->getComponent<Collision>()->getRect();
+
+                    if (colComponent->hasCollision(B)) {
+                        posComponent->update(xPos, yPos);
+                        colComponent->update();
+                    }
+                }
+            }
+
+        }
     }
 }
 
