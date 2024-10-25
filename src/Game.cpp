@@ -59,10 +59,13 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
 
         this->entidad = std::make_shared<Entity>(this->ptrArchetypes, "res/enemy.webp", 500, 150, 1, 1, 0, 0, 128, 128);
         this->entidad->addComponent<Sprite>("res/enemy.webp", 0, 0, 128, 128);
-        this->entidad->addComponent<Velocity>(0., 100.);
-        this->entidad->addComponent<Position>(200., 100.);
+        this->entidad->addComponent<Velocity>(-50., 0.);
+        this->entidad->addComponent<Position>(800., 302.);
         this->entidad->addComponent<Scale>(1., 1.);
         this->entidad->addComponent<Render>();
+        this->entidad->addComponent<Animator>();
+        this->entidad->getComponent<Animator>()->loadAnimationFromJSON("res/anim/idleEnemy.json");
+        this->entidad->getComponent<Animator>()->setAnimation("WALK");
 
 
         this->isRunning = true;
@@ -90,6 +93,9 @@ void Game::handleEvents(){
 void Game::update(float deltaTime){
 
     this->movementSystem->update(deltaTime);
+    for (const auto &e:(*this->ptrArchetypes)[getComponentBitset<Animator>()] ) {
+        e->getComponent<Animator>()->update(deltaTime);
+    }
 }
 
 void Game::render(){

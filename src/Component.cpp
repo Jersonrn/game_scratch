@@ -1,8 +1,14 @@
 #include <Entity.hpp>
 #include <Component.hpp>
 #include <cstddef>
+#include <iostream>
 #include <memory>
 #include <string>
+#include <vector>
+
+#include <json.hpp>
+#include <fstream>
+using json = nlohmann::json;
 
 
 Component::Component(std::shared_ptr<Entity> entity)
@@ -52,6 +58,88 @@ Sprite::Sprite(
     };
 
 Sprite::~Sprite() {};
+
+
+//ANIMATOR
+Animator::Animator(std::shared_ptr<Entity> entity)
+    : Component(entity) { };
+
+Animator::~Animator() {};
+
+void Animator::addAnimation(std::string &name, std::vector<std::vector<int>> &&frames) {
+    this->animations[name] = frames;
+};
+
+void Animator::update(float deltaTime) {
+    if (!this->animations.empty()) {
+        this->updateFrame(deltaTime);
+
+        float srcRectX = this->animations[this->currentAnimation][this->getCurrentFrame()][0];
+        float srcRectW = this->animations[this->currentAnimation][this->getCurrentFrame()][1];
+        this->entity->texture->setXCrop(srcRectX, srcRectW);
+
+        float srcRectY = this->animations[this->currentAnimation][this->getCurrentFrame()][2];
+        float srcRectH = this->animations[this->currentAnimation][this->getCurrentFrame()][3];
+        this->entity->texture->setYCrop(srcRectY, srcRectH);
+    }
+}
+
+int Animator::getCurrentFrame() {
+    return this->currentFrame;
+}
+
+void Animator::setAnimation(std::string anim) {
+    if (!this->animations.empty()) {
+        if (this->animations.find(anim) == this->animations.end()) {
+            auto iterator = this->animations.begin();
+            std::string firstKey = iterator->first;
+
+            std::cerr << "The "<< anim << " animation does not exist in animations, setting to " << firstKey;
+            this->currentAnimation = firstKey;
+        } else {
+            this->currentAnimation = anim;
+        }
+    } else {
+        std::cerr << "Animations is void!";
+    }
+}
+
+void Animator::updateFrame(float deltaTime) {
+    this->currentFrame += static_cast<float>(this->animations[this->currentAnimation].size()) * deltaTime;
+
+    if (this->currentFrame >= this->animations[this->currentAnimation].size()) {
+        this->currentFrame = 0;
+    }
+}
+
+void Animator::nextFrame() {
+    if (this->currentFrame >= this->animations[this->currentAnimation].size()) {
+        this->currentFrame = 0;
+    } else {
+        this->currentFrame++;
+    }
+}
+
+int Animator::loadAnimationFromJSON(std::string path) {
+    std::ifstream inputFile(path);
+    if (!inputFile.is_open()) {
+        std::cerr << "Eror opening " << path << "file." << std::endl;
+        return 1;
+    }
+
+    // Parse JSON file
+    nlohmann::json json;
+    inputFile >> json;
+    inputFile.close();
+
+    for (const auto& row : json["WALK"]) {
+        std::vector<int> innerVec = row.get<std::vector<int>>();
+        this->animations["WALK"].push_back(innerVec);
+    }
+
+    return 0;
+};
+
 
 //RENDER
 Render::Render(std::shared_ptr<Entity> entity)

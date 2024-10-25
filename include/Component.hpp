@@ -1,6 +1,9 @@
 #pragma once
+#include <cstddef>
 #include <memory>
 #include <string>
+#include <unordered_map>
+#include <vector>
 
 class Entity;
 
@@ -50,6 +53,26 @@ class Sprite: public Component {
             int srcRectX, int srcRectY, int srcRectW, int srcRectH
         );
         virtual ~Sprite();
+};
+
+class Animator: public Component {
+    private:
+        float currentFrame;
+        std::string currentAnimation;
+
+    public:
+        std::unordered_map<std::string, std::vector<std::vector<int>>> animations;
+
+        Animator(std::shared_ptr<Entity> entity);
+        virtual ~Animator();
+
+        void addAnimation(std::string &name, std::vector<std::vector<int>> &&frames);
+        void update(float deltaTime);
+        void setAnimation(std::string anim);
+        int getCurrentFrame();
+        void nextFrame();
+        void updateFrame(float deltaTime);
+        int loadAnimationFromJSON(std::string path);
 };
 
 class Render: public Component {

@@ -27,6 +27,8 @@ class Texture {
         void setYPosition(float y);
         void setXScale(float x);
         void setYScale(float y);
+        void setXCrop(float from, float to);
+        void setYCrop(float from, float to);
 
         void move(float x, float y);
 

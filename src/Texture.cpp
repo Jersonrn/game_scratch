@@ -76,3 +76,11 @@ void Texture::move(float x, float y) {
     this->dstRect.x += x;
     this->dstRect.y += y;
 }
+void Texture::setXCrop(float from , float to) {
+    this->srcRect.x = from;
+    this->srcRect.w = to;
+}
+void Texture::setYCrop(float from , float to) {
+    this->srcRect.y = from;
+    this->srcRect.h = to;
+}
