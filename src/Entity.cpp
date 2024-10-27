@@ -41,8 +41,8 @@ void Entity::updatePosition(float deltaTime) {
     Position *positionComponent = getComponent<Position>();
     Velocity *velocityComponent = getComponent<Velocity>();
 
-    float posX = positionComponent->x();
-    float posY = positionComponent->y();
+    float posX = positionComponent->getX();
+    float posY = positionComponent->getY();
 
     posX += velocityComponent->x * deltaTime;
     posY += velocityComponent->y * deltaTime;

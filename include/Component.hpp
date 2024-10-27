@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL2/SDL_rect.h>
+#include <array>
 #include <cstddef>
 #include <memory>
 #include <string>
@@ -33,8 +34,12 @@ class Position: public Component {
         Position(std::shared_ptr<Entity> entity, float x, float y);
         virtual ~Position();
 
-        float x();
-        float y();
+        float getX();
+        float getY();
+
+        void setX(float x);
+        void setY(float y);
+
         void update(float x, float y);
 };
 
@@ -56,7 +61,7 @@ class Collision: public Component {
 
         void update();
 
-        bool hasCollision(SDL_Rect* B);
+        std::array<bool, 2> hasCollision(SDL_Rect* B);
 
         SDL_Rect* getRect();
 };

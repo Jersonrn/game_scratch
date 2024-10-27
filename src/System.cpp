@@ -2,6 +2,8 @@
 #include "utils.hpp"
 #include <SDL2/SDL_rect.h>
 #include <System.hpp>
+#include <array>
+#include <iostream>
 
 
 
@@ -37,8 +39,8 @@ void MovementSystem::update(float deltaTime) {
 
     for (const auto &e : (*this->ptrArchetypes)[bitset]) {
         Position* posComponent = e->getComponent<Position>();
-        float xPos = posComponent->x();
-        float yPos = posComponent->y();
+        float xPos = posComponent->getX();
+        float yPos = posComponent->getY();
 
         e->updatePosition(deltaTime);
 
@@ -51,10 +53,17 @@ void MovementSystem::update(float deltaTime) {
                 if (colEntity->getID() != e->getID()) {
                     SDL_Rect* B = colEntity->getComponent<Collision>()->getRect();
 
-                    if (colComponent->hasCollision(B)) {
-                        posComponent->update(xPos, yPos);
-                        colComponent->update();
+                    std::array<bool, 2> collision = colComponent->hasCollision(B);
+
+                    if (collision[0]) {
+                        posComponent->setX(xPos);
                     }
+
+                    if (collision[1]) {
+                        posComponent->setY(yPos);
+                    }
+
+                    colComponent->update();
                 }
             }
 

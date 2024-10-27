@@ -1,6 +1,7 @@
 #include <Entity.hpp>
 #include <Component.hpp>
 #include <SDL2/SDL_rect.h>
+#include <array>
 #include <cstddef>
 #include <iostream>
 #include <memory>
@@ -35,8 +36,11 @@ Position::Position(std::shared_ptr<Entity> entity,float x, float y)
 
 Position::~Position() {};
 
-float Position::x() { return this->entity->texture->getXPosition(); }
-float Position::y() { return this->entity->texture->getYPosition(); }
+float Position::getX() { return this->entity->texture->getXPosition(); }
+float Position::getY() { return this->entity->texture->getYPosition(); }
+
+void Position::setX(float x) { this->entity->texture->setXPosition(x); };
+void Position::setY(float y) { this->entity->texture->setYPosition(y); };
 
 void Position::update(float x, float y) {
     this->entity->texture->setXPosition(x);
@@ -71,8 +75,20 @@ void Collision::update() {
     this->colRect = {x, y, w, h};
 };
 
-bool Collision::hasCollision(SDL_Rect *B) {
-    return SDL_HasIntersection(this->getRect(), B);
+std::array<bool, 2> Collision::hasCollision(SDL_Rect *B) {
+    /* return SDL_HasIntersection(this->getRect(), B); */
+
+    std::array<bool, 2> output;
+
+    bool x = ( B->x > this->getRect()->x && B->x < (this->getRect()->x + this->getRect()->w) ) ||
+        ( (B->x + B->w) > this->getRect()->x && (B->x + B->w) < (this->getRect()->x + this->getRect()->w) );
+
+    bool y = ( B->y > this->getRect()->y && B->y < (this->getRect()->y + this->getRect()->h) ) ||
+        ( (B->y + B->h) > this->getRect()->y && (B->y + B->h) < (this->getRect()->y + this->getRect()->h) );
+
+    output = {x, y};
+
+    return output;
 };
 
 SDL_Rect* Collision::getRect() {
