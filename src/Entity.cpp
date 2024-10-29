@@ -15,15 +15,10 @@ Entity::Entity(
             ComponentBitset,
             std::vector<std::shared_ptr<Entity>>,
             BitsetHash
-        >> ptrArchetypes,
-        const std::string &pathFile,
-        float xPos, float yPos,
-        float xScale, float yScale,
-        int srcRectX, int srcRectY, int srcRectW, int srcRectH
+        >> ptrArchetypes
         ) : ptrArchetypes(ptrArchetypes), components(MAXCOMPONENTS) {
     this->ID = ++counter;
     this->texture = std::make_unique<Texture>();
-    /* this->texture->load_from_file(pathFile, srcRectX, srcRectY, srcRectW, srcRectH, xPos, yPos, srcRectW * xScale, srcRectH * yScale); */
 }
 
 Entity::~Entity(){}
