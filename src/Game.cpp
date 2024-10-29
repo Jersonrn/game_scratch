@@ -85,16 +85,28 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
     return 0;
 }
 
-void Game::handleEvents(){
+void Game::handleEvents() {
     SDL_Event event;
-    SDL_PollEvent(&event);
-    switch (event.type){
-        case SDL_QUIT:
-            this->isRunning = false;
-            break;
+    while (SDL_PollEvent(&event)) { // Process all available events
+        switch (event.type) {
+            case SDL_QUIT:
+                this->isRunning = false;
+                break;
 
-        default:
-            break;
+            // Manage events (keys, mouse, etc)
+            case SDL_KEYDOWN:
+                if (event.key.keysym.sym == SDLK_ESCAPE) {
+                    this->isRunning = false;
+                } else {
+                    for (const auto& e : (*this->ptrArchetypes)[getComponentBitset<InputKey>()]) {
+                        e->getComponent<InputKey>()->update(event.key);
+                    };
+                }
+                break;
+
+            default:
+                break;
+        }
     }
 }
 

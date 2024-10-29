@@ -1,4 +1,5 @@
 #pragma once
+#include <SDL2/SDL_events.h>
 #include <SDL2/SDL_rect.h>
 #include <array>
 #include <cstddef>
@@ -74,6 +75,14 @@ class Sprite: public Component {
             int srcRectX, int srcRectY, int srcRectW, int srcRectH
         );
         virtual ~Sprite();
+};
+
+class InputKey: public Component {
+    public:
+        InputKey(std::shared_ptr<Entity> entity);
+        virtual ~InputKey();
+
+        virtual void update(const SDL_KeyboardEvent& keyEvent);
 };
 
 class Animator: public Component {

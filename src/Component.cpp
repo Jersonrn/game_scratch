@@ -1,5 +1,6 @@
 #include <Entity.hpp>
 #include <Component.hpp>
+#include <SDL2/SDL_events.h>
 #include <SDL2/SDL_rect.h>
 #include <array>
 #include <cstddef>
@@ -109,6 +110,17 @@ Sprite::Sprite(
     };
 
 Sprite::~Sprite() {};
+
+
+//INPUTKEY
+InputKey::InputKey(std::shared_ptr<Entity> entity)
+    : Component(entity) { };
+
+InputKey::~InputKey() {};
+
+void InputKey::update(const SDL_KeyboardEvent& keyEvent) {
+    this->entity->handleInputEvents(keyEvent);
+};
 
 
 //ANIMATOR

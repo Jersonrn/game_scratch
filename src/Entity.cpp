@@ -28,6 +28,7 @@ Entity::Entity(
 
 Entity::~Entity(){}
 
+void Entity::handleInputEvents(const SDL_KeyboardEvent& keyEvent) {};
 
 std::size_t Entity::getID() { return this->ID; }
 

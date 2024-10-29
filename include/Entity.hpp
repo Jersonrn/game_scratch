@@ -41,6 +41,8 @@ class Entity: public std::enable_shared_from_this<Entity> {
         );
         virtual ~Entity();
 
+        void virtual handleInputEvents(const SDL_KeyboardEvent& keyEvent);
+
         std::size_t getID();
         bool isActive();
         void destroy();
