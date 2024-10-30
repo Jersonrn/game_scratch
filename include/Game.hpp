@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.hpp"
+#include <Enemy.hpp>
 #include <System.hpp>
 #include "Map.hpp"
 #include <utils.hpp>
@@ -40,7 +41,7 @@ class Game {
         Map *map = nullptr;
         Texture *texture_background = nullptr;
         std::shared_ptr<Entity> entidad;
-        std::shared_ptr<Entity> enemy;
+        std::shared_ptr<Enemy>  enemy;
         std::unique_ptr<MovementSystem> movementSystem;
 };
 

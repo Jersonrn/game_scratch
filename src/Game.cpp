@@ -57,12 +57,8 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
 
         this->movementSystem = std::make_unique<MovementSystem>(this->ptrArchetypes);
 
-        this->enemy = std::make_shared<Entity>(this->ptrArchetypes);
-        this->enemy->addComponent<Sprite>("res/enemy.webp", 0, 0, 128, 128);
-        this->enemy->addComponent<Position>(500., 302.);
-        this->enemy->addComponent<Scale>(1., 1.);
-        this->enemy->addComponent<Collision>(500, 128, 302, 128);
-        this->enemy->addComponent<Render>();
+        this->enemy = std::make_shared<Enemy>(this->ptrArchetypes);
+        this->enemy->initialize();
 
         this->entidad = std::make_shared<Entity>(this->ptrArchetypes);
         this->entidad->addComponent<Sprite>("res/enemy.webp", 0, 0, 128, 128);
