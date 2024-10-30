@@ -1,6 +1,9 @@
 #include "Component.hpp"
 #include "Entity.hpp"
 #include <Enemy.hpp>
+#include <SDL2/SDL_events.h>
+#include <SDL2/SDL_keycode.h>
+#include <iostream>
 
 
 Enemy::Enemy(
@@ -20,11 +23,11 @@ int Enemy::initialize() {
     this->addComponent<Collision>(500, 128, 302, 128);
     this->addComponent<Animator>();
     Animator* animator = this->getComponent<Animator>();
-    animator->loadAnimationFromJSON("res/anim/walkEnemy.json");
+    animator->loadAnimationFromJSON("res/anim/walkEnemy.json", "WALK");
     animator->setAnimation("WALK");
     this->addComponent<Render>();
 
     return 0;
 }
 
-Enemy::~Enemy() {}
+Enemy::~Enemy() {};

@@ -60,6 +60,9 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
         this->enemy = std::make_shared<Enemy>(this->ptrArchetypes);
         this->enemy->initialize();
 
+        this->player = std::make_shared<Player>(this->ptrArchetypes);
+        this->player->initialize();
+
         this->entidad = std::make_shared<Entity>(this->ptrArchetypes);
         this->entidad->addComponent<Sprite>("res/enemy.webp", 0, 0, 128, 128);
         this->entidad->addComponent<Velocity>(-50., 0.);
@@ -68,7 +71,7 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
         this->entidad->addComponent<Collision>(800., 128., 302, 128);
         this->entidad->addComponent<Render>();
         this->entidad->addComponent<Animator>();
-        this->entidad->getComponent<Animator>()->loadAnimationFromJSON("res/anim/walkEnemy.json");
+        this->entidad->getComponent<Animator>()->loadAnimationFromJSON("res/anim/walkEnemy.json", "WALK");
         this->entidad->getComponent<Animator>()->setAnimation("WALK");
 
 

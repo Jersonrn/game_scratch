@@ -138,10 +138,10 @@ void Animator::update(float deltaTime) {
         this->updateFrame(deltaTime);
 
         float srcRectX = this->animations[this->currentAnimation][this->getCurrentFrame()][0];
-        float srcRectW = this->animations[this->currentAnimation][this->getCurrentFrame()][1];
+        float srcRectW = this->animations[this->currentAnimation][this->getCurrentFrame()][2];
         this->entity->texture->setXCrop(srcRectX, srcRectW);
 
-        float srcRectY = this->animations[this->currentAnimation][this->getCurrentFrame()][2];
+        float srcRectY = this->animations[this->currentAnimation][this->getCurrentFrame()][1];
         float srcRectH = this->animations[this->currentAnimation][this->getCurrentFrame()][3];
         this->entity->texture->setYCrop(srcRectY, srcRectH);
     }
@@ -183,7 +183,7 @@ void Animator::nextFrame() {
     }
 }
 
-int Animator::loadAnimationFromJSON(std::string path) {
+int Animator::loadAnimationFromJSON(const std::string& path, const std::string& name) {
     std::ifstream inputFile(path);
     if (!inputFile.is_open()) {
         std::cerr << "Eror opening " << path << "file." << std::endl;
@@ -195,9 +195,9 @@ int Animator::loadAnimationFromJSON(std::string path) {
     inputFile >> json;
     inputFile.close();
 
-    for (const auto& row : json["WALK"]) {
+    for (const auto& row : json[name]) {
         std::vector<int> innerVec = row.get<std::vector<int>>();
-        this->animations["WALK"].push_back(innerVec);
+        this->animations[name].push_back(innerVec);
     }
 
     return 0;
