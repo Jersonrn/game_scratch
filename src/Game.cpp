@@ -71,7 +71,7 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
         this->entidad->addComponent<Collision>(800., 128., 302, 128);
         this->entidad->addComponent<Render>();
         this->entidad->addComponent<Animator>();
-        this->entidad->getComponent<Animator>()->loadAnimationFromJSON("res/anim/walkEnemy.json", "WALK");
+        this->entidad->getComponent<Animator>()->loadAnimationsFromJSON("res/anim/animationsEnemy.json");
         this->entidad->getComponent<Animator>()->setAnimation("WALK");
 
 

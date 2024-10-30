@@ -23,8 +23,8 @@ int Enemy::initialize() {
     this->addComponent<Collision>(500, 128, 302, 128);
     this->addComponent<Animator>();
     Animator* animator = this->getComponent<Animator>();
-    animator->loadAnimationFromJSON("res/anim/walkEnemy.json", "WALK");
-    animator->setAnimation("WALK");
+    animator->loadAnimationsFromJSON("res/anim/animationsEnemy.json");
+    animator->setAnimation("IDLE");
     this->addComponent<Render>();
 
     return 0;

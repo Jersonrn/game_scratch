@@ -157,13 +157,13 @@ void Animator::setAnimation(std::string anim) {
             auto iterator = this->animations.begin();
             std::string firstKey = iterator->first;
 
-            std::cerr << "The "<< anim << " animation does not exist in animations, setting to " << firstKey;
+            std::cerr << "The "<< anim << " animation does not exist in animations, setting to " << firstKey << std::endl;
             this->currentAnimation = firstKey;
         } else {
             this->currentAnimation = anim;
         }
     } else {
-        std::cerr << "Animations is void!";
+        std::cerr << "Animations is void!" << std::endl;
     }
 }
 
@@ -175,6 +175,7 @@ void Animator::updateFrame(float deltaTime) {
     }
 }
 
+// deprecated
 void Animator::nextFrame() {
     if (this->currentFrame >= this->animations[this->currentAnimation].size()) {
         this->currentFrame = 0;
@@ -203,6 +204,28 @@ int Animator::loadAnimationFromJSON(const std::string& path, const std::string& 
     return 0;
 };
 
+int Animator::loadAnimationsFromJSON(const std::string& path) {
+    std::ifstream inputFile(path);
+    if (!inputFile.is_open()) {
+        std::cerr << "Eror opening " << path << "file." << std::endl;
+        return 1;
+    }
+
+    // Parse JSON file
+    nlohmann::json json;
+    inputFile >> json;
+    inputFile.close();
+
+    for (const auto& item: json.items()) {
+        this->loadAnimationFromJSON(path, item.key());
+        /* for (const auto& row : json[item.key()]) { */
+        /*     std::vector<int> innerVec = row.get<std::vector<int>>(); */
+        /*     this->animations[item.key()].push_back(innerVec); */
+        /* } */
+    }
+
+    return 0;
+};
 
 //RENDER
 Render::Render(std::shared_ptr<Entity> entity)

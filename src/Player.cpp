@@ -19,8 +19,8 @@ int Player::initialize() {
     this->addComponent<InputKey>();
     this->addComponent<Animator>();
     Animator* animator = this->getComponent<Animator>();
-    animator->loadAnimationFromJSON("res/anim/idleWeaponPlayer.json", "IDLE");
-    animator->setAnimation("IDLE");
+    animator->loadAnimationsFromJSON("res/anim/animationsPlayer.json");
+    animator->setAnimation("RUN");
     this->addComponent<Render>();
 
     return 0;

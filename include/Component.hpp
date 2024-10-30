@@ -103,6 +103,7 @@ class Animator: public Component {
         void nextFrame();
         void updateFrame(float deltaTime);
         int loadAnimationFromJSON(const std::string& path, const std::string& name);
+        int loadAnimationsFromJSON(const std::string& path);
 };
 
 class Render: public Component {
