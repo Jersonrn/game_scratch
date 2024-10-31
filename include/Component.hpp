@@ -62,7 +62,7 @@ class Collision: public Component {
 
         void update();
 
-        std::array<bool, 2> hasCollision(SDL_Rect* B);
+        bool hasCollision(SDL_Rect* B);
 
         SDL_Rect* getRect();
 };

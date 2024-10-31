@@ -1,4 +1,6 @@
 #include <Player.hpp>
+#include <SDL2/SDL_keycode.h>
+#include <iostream>
 
 
 Player::Player(
@@ -15,7 +17,7 @@ int Player::initialize() {
     this->addComponent<Velocity>(0., 0.);
     this->addComponent<Position>(100., 200.);
     this->addComponent<Scale>(1., 1.);
-    this->addComponent<Collision>(500, 128, 302, 128);
+    this->addComponent<Collision>(100, 200, 64, 64);
     this->addComponent<InputKey>();
     this->addComponent<Animator>();
     Animator* animator = this->getComponent<Animator>();
@@ -32,7 +34,15 @@ void Player::handleInputEvents(const SDL_KeyboardEvent& keyEvent) {
     /* https://www.libsdl.org/release/SDL-1.2.15/docs/html/sdlkey.html */
     if (keyEvent.keysym.sym == SDLK_LEFT) {
         this->getComponent<Velocity>()->x = -100.;
+        std::cout << "vel: " << this->getComponent<Velocity>()->x << std::endl;
     } else if (keyEvent.keysym.sym == SDLK_RIGHT) {
         this->getComponent<Velocity>()->x = 100.;
+        std::cout << "vel: " << this->getComponent<Velocity>()->x << std::endl;
+    } else if (keyEvent.keysym.sym == SDLK_UP) {
+        this->getComponent<Velocity>()->y = -100.;
+        std::cout << "vel: " << this->getComponent<Velocity>()->y << std::endl;
+    } else if (keyEvent.keysym.sym == SDLK_DOWN) {
+        this->getComponent<Velocity>()->y =100.;
+        std::cout << "vel: " << this->getComponent<Velocity>()->y << std::endl;
     }
 }

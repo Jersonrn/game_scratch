@@ -60,7 +60,7 @@ Scale::~Scale() {};
 
 
 //COLLISION
-Collision::Collision(std::shared_ptr<Entity> entity,int x, int w, int y, int h)
+Collision::Collision(std::shared_ptr<Entity> entity,int x, int y, int w,int h)
     : Component(entity) {
         this->colRect = { x, y, w, h };
     };
@@ -76,20 +76,8 @@ void Collision::update() {
     this->colRect = {x, y, w, h};
 };
 
-std::array<bool, 2> Collision::hasCollision(SDL_Rect *B) {
-    /* return SDL_HasIntersection(this->getRect(), B); */
-
-    std::array<bool, 2> output;
-
-    bool x = ( B->x > this->getRect()->x && B->x < (this->getRect()->x + this->getRect()->w) ) ||
-        ( (B->x + B->w) > this->getRect()->x && (B->x + B->w) < (this->getRect()->x + this->getRect()->w) );
-
-    bool y = ( B->y > this->getRect()->y && B->y < (this->getRect()->y + this->getRect()->h) ) ||
-        ( (B->y + B->h) > this->getRect()->y && (B->y + B->h) < (this->getRect()->y + this->getRect()->h) );
-
-    output = {x, y};
-
-    return output;
+bool Collision::hasCollision(SDL_Rect *B) {
+    return SDL_HasIntersection(this->getRect(), B);
 };
 
 SDL_Rect* Collision::getRect() {

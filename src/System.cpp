@@ -35,38 +35,47 @@ MovementSystem::~MovementSystem(){};
 void MovementSystem::update(){};
 
 void MovementSystem::update(float deltaTime) {
-    ComponentBitset bitset = getComponentBitset<Position>() | getComponentBitset<Velocity>();
+    ComponentBitset posBitSet = getComponentBitset<Position>() | getComponentBitset<Velocity>();
 
-    for (const auto &e : (*this->ptrArchetypes)[bitset]) {
+    for (const auto &e : (*this->ptrArchetypes)[posBitSet]) {
         Position* posComponent = e->getComponent<Position>();
         float xPos = posComponent->getX();
         float yPos = posComponent->getY();
 
-        e->updatePosition(deltaTime);
+        Velocity* velComponent = e->getComponent<Velocity>();
+        float newXpos = xPos + (velComponent->x * deltaTime);
+        float newYpos = yPos + (velComponent->y * deltaTime);
 
         if (e->hasComponent<Collision>()) {
             Collision* colComponent = e->getComponent<Collision>();
-            colComponent->update();
-
             ComponentBitset colBitset = getComponentBitset<Collision>();
+
+            posComponent->setX(newXpos);
+            colComponent->update();
             for (const auto& colEntity : (*this->ptrArchetypes)[colBitset]) {
                 if (colEntity->getID() != e->getID()) {
                     SDL_Rect* B = colEntity->getComponent<Collision>()->getRect();
-
-                    std::array<bool, 2> collision = colComponent->hasCollision(B);
-
-                    if (collision[0]) {
+                    if (colComponent->hasCollision(B)) {
                         posComponent->setX(xPos);
                     }
-
-                    if (collision[1]) {
-                        posComponent->setY(yPos);
-                    }
-
-                    colComponent->update();
                 }
             }
 
+            posComponent->setY(newYpos);
+            colComponent->update();
+            for (const auto& colEntity : (*this->ptrArchetypes)[colBitset]) {
+                if (colEntity->getID() != e->getID()) {
+                    SDL_Rect* B = colEntity->getComponent<Collision>()->getRect();
+                    if (colComponent->hasCollision(B)) {
+                        posComponent->setY(yPos);
+                    }
+                }
+            }
+
+            colComponent->update();
+
+        } else {
+            e->updatePosition(deltaTime);
         }
     }
 }
