@@ -1,5 +1,5 @@
 #include "Entity.hpp"
-#include "utils.hpp"
+#include "Utils.hpp"
 #include <SDL2/SDL_rect.h>
 #include <System.hpp>
 #include <array>

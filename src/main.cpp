@@ -5,7 +5,7 @@
 #include <memory>
 #include "Game.hpp"
 #include <SDL2/SDL_video.h>
-#include <utils.hpp>
+#include <Utils.hpp>
 
 
 std::size_t Entity::counter = 0;

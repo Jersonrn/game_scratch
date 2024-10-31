@@ -4,7 +4,7 @@
 #include <Player.hpp>
 #include <System.hpp>
 #include "Map.hpp"
-#include <utils.hpp>
+#include <Utils.hpp>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_rect.h>

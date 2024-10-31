@@ -1,6 +1,6 @@
 #include <Entity.hpp>
 #include "Texture.hpp"
-#include "utils.hpp"
+#include "Utils.hpp"
 #include <cstddef>
 #include <iostream>
 #include <memory>

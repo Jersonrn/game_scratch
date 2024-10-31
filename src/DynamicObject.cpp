@@ -1,7 +1,7 @@
 #include "Game.hpp"
 #include "GameObject.hpp"
 #include <DynamicObject.hpp>
-#include <utils.hpp>
+#include <Utils.hpp>
 
 
 DynamicObject::DynamicObject(

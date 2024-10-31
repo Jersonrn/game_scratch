@@ -9,7 +9,7 @@
 #include "DynamicObject.hpp"
 #include "Entity.hpp"
 #include "Map.hpp"
-#include "utils.hpp"
+#include "Utils.hpp"
 #include <GameObject.hpp>
 
 #include <SDL2/SDL.h>
