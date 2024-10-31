@@ -24,7 +24,7 @@ class Game {
         ~Game();
 
         void handleEvents();
-        int init(const char* title, int x, int y, int width, int height, bool fullscreen);
+        int init(const char* title, int x, int y, int width, int height, bool fullscreen, bool showCols);
         void update(float deltaTime);
         void render();
         void clean();
@@ -39,9 +39,10 @@ class Game {
         bool isRunning;
         SDL_Window *window;
 
+        bool renderCollision;
+
         Map *map = nullptr;
         Texture *texture_background = nullptr;
-        std::shared_ptr<Entity> entidad;
         std::shared_ptr<Enemy>  enemy;
         std::shared_ptr<Player>  player;
         std::unique_ptr<MovementSystem> movementSystem;

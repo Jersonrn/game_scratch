@@ -1,4 +1,5 @@
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_surface.h>
 #include <cstddef>
 #include <iostream>
@@ -28,7 +29,7 @@ Game::Game(){
 Game::~Game(){
 }
 
-int Game::init(const char *title, int x, int y, int width, int height, bool fullscreen){
+int Game::init(const char *title, int x, int y, int width, int height, bool fullscreen, bool showCols) {
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0 ){
         Uint32 flags = fullscreen ? SDL_WINDOW_FULLSCREEN : 0;
 
@@ -47,6 +48,8 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
             return -1;
         }
 
+        this->renderCollision = showCols;
+
         this->ptrArchetypes = std::make_shared<std::unordered_map<ComponentBitset, std::vector<std::shared_ptr<Entity>>, BitsetHash>>();
 
         this->texture_background = new Texture();
@@ -62,17 +65,6 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
 
         this->player = std::make_shared<Player>(this->ptrArchetypes);
         this->player->initialize();
-
-        this->entidad = std::make_shared<Entity>(this->ptrArchetypes);
-        this->entidad->addComponent<Sprite>("res/enemy.webp", 0, 0, 128, 128);
-        this->entidad->addComponent<Velocity>(-50., 0.);
-        this->entidad->addComponent<Position>(800., 302.);
-        this->entidad->addComponent<Scale>(1., 1.);
-        this->entidad->addComponent<Collision>(800., 128., 302, 128);
-        this->entidad->addComponent<Render>();
-        this->entidad->addComponent<Animator>();
-        this->entidad->getComponent<Animator>()->loadAnimationsFromJSON("res/anim/animationsEnemy.json");
-        this->entidad->getComponent<Animator>()->setAnimation("WALK");
 
 
         this->isRunning = true;
@@ -120,11 +112,36 @@ void Game::update(float deltaTime){
 void Game::render(){
     SDL_RenderClear(this->renderer);
 
+    SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 0);
+
     if (this->map) { this->map->render(); }
 
     for (const auto &e : (*this->ptrArchetypes)[getComponentBitset<Render>()]) {
         e->render();
     }
+
+    if (this->renderCollision) {
+        std::vector<std::shared_ptr<Entity>> colEntities = (*this->ptrArchetypes)[getComponentBitset<Collision>()];
+
+        //RECT
+        int n = colEntities.size();
+        SDL_Rect rects[n];
+
+        for(std::vector<std::shared_ptr<Entity>>::size_type i = 0; i != colEntities.size(); i++) {
+            rects[i] = colEntities[i]->getComponent<Collision>()->colRect;
+        }
+
+        SDL_SetRenderDrawColor(this->renderer, 93, 197, 226, 255); // Blue Color
+        SDL_RenderDrawRects(this->renderer, rects, n);
+
+        //FILLRECT
+        /* for (const auto& c : colEntities) { */
+        /*     SDL_SetRenderDrawColor(this->renderer, 0, 0, 255, 100); */
+        /*     SDL_RenderFillRect(this->renderer, &c->getComponent<Collision>()->colRect); */
+        /* } */
+    }
+
+    SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 0); // Black Color
 
     SDL_RenderPresent(this->renderer);
 }

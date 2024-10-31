@@ -10,8 +10,13 @@
 
 std::size_t Entity::counter = 0;
 
-int main() {
+int main(int argc, char* argv[]) {
     std::unique_ptr<Game> game = std::make_unique<Game>();
+
+    if (argc < 2) {
+        std::cout << "Please provide a boolean argument (true/false))." << std::endl;
+        return 1;
+    }
 
     if (game->init(
             "GameTEST",
@@ -19,7 +24,8 @@ int main() {
             SDL_WINDOWPOS_CENTERED,
             1280,
             720,
-            false
+            false,
+            (std::string(argv[1]) == "true") ? true : false
             ) != 0) {
         std::cerr << "Error initializing game." <<SDL_GetError() << std::endl;
         return -1;
