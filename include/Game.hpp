@@ -42,7 +42,7 @@ class Game {
         bool renderCollision;
 
         Map *map = nullptr;
-        Texture *texture_background = nullptr;
+        Texture *tiles = nullptr;
         std::shared_ptr<Enemy>  enemy;
         std::shared_ptr<Player>  player;
         std::unique_ptr<MovementSystem> movementSystem;

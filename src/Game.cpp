@@ -52,11 +52,12 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
 
         this->ptrArchetypes = std::make_shared<std::unordered_map<ComponentBitset, std::vector<std::shared_ptr<Entity>>, BitsetHash>>();
 
-        this->texture_background = new Texture();
-        this->texture_background->load_from_file("res/tiles.webp");
+        this->tiles = new Texture();
+        this->tiles->load_from_file("res/tiles.webp");
 
         this->map = new Map();
         this->map->loadFromFile("res/map/map.txt");
+        this->map->loadObjectsFromJSONFile("res/map/objs.json");
 
         this->movementSystem = std::make_unique<MovementSystem>(this->ptrArchetypes);
 
@@ -150,7 +151,7 @@ void Game::clean(){
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(this->renderer);
 
-    if (this->texture_background) { delete this->texture_background; }
+    if (this->tiles) { delete this->tiles; }
     if (this->map) { delete this->map; }
 
     IMG_Quit();

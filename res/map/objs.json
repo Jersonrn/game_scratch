@@ -1,0 +1,62 @@
+{
+    "bush_1": {
+        "path": "res/props/bush_1.webp",
+        "dst": [[50, 100, 1, 1], [50, 50, 1, 1]],
+        "src": [[0, 0, -1, -1], [0, 0, -1, -1]]
+    },
+    "fern_1": {
+        "path": "res/props/fern_1.webp",
+        "dst": [[100, 100, 1, 1]],
+        "src": [[0, 0, -1, -1]]
+    },
+    "flower_1": {
+        "path": "res/props/flower_1.webp",
+        "dst": [[150, 100, 1, 1]],
+        "src": [[0, 0, -1, -1]]
+    },
+    "grass_1": {
+        "path": "res/props/grass_1.webp",
+        "dst": [[200, 100, 1, 1]],
+        "src": [[0, 0, -1, -1]]
+    },
+    "grass_2": {
+        "path": "res/props/grass_2.webp",
+        "dst": [[300, 100, 1, 1]],
+        "src": [[0, 0, -1, -1]]
+    },
+    "grass_3": {
+        "path": "res/props/grass_3.webp",
+        "dst": [[400, 100, 1, 1]],
+        "src": [[0, 0, -1, -1]]
+    },
+    "ground_flowers_1": {
+        "path": "res/props/ground_flowers_1.webp",
+        "dst": [[500, 100, 1, 1]],
+        "src": [[0, 0, -1, -1]]
+    },
+    "rock_1": {
+        "path": "res/props/rock_1.webp",
+        "dst": [[600, 100, 1, 1]],
+        "src": [[0, 0, -1, -1]]
+    },
+    "tree_1": {
+        "path": "res/props/tree_1.webp",
+        "dst": [[700, 100, 1, 1]],
+        "src": [[0, 0, -1, -1]]
+    },
+    "tree_2": {
+        "path": "res/props/tree_2.webp",
+        "dst": [[800, 100, 1, 1]],
+        "src": [[0, 0, -1, -1]]
+    },
+    "vine_1": {
+        "path": "res/props/vine_1.webp",
+        "dst": [[900, 100, 1, 1]],
+        "src": [[0, 0, -1, -1]]
+    },
+    "vine_2": {
+        "path": "res/props/vine_2.webp",
+        "dst": [[1000, 100, 1, 1]],
+        "src": [[0, 0, -1, -1]]
+    }
+}

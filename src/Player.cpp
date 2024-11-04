@@ -15,7 +15,7 @@ Player::Player(
 int Player::initialize() {
     this->addComponent<Sprite>("res/robot.webp", 0, 0, 64, 64);
     this->addComponent<Velocity>(0., 0.);
-    this->addComponent<Position>(100., 200.);
+    this->addComponent<Position>(200., 525.);
     this->addComponent<Scale>(1., 1.);
     this->addComponent<Collision>(100, 200, 64, 64);
     this->addComponent<InputKey>();
