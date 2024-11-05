@@ -1,3 +1,4 @@
+#include "Component.hpp"
 #include <Player.hpp>
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_keycode.h>
@@ -37,6 +38,7 @@ void Player::handleInputEvents(const SDL_Event& event) {
         if (event.type == SDL_KEYDOWN) {
             this->getComponent<Velocity>()->x = -100.;
             this->getComponent<Animator>()->setAnimation("RUN");
+            this->texture->setFlip("HORIZONTAL");
 
         } else if (event.type == SDL_KEYUP) {
             this->getComponent<Velocity>()->x = 0.;
@@ -47,6 +49,7 @@ void Player::handleInputEvents(const SDL_Event& event) {
         if (event.type == SDL_KEYDOWN) {
             this->getComponent<Velocity>()->x = 100.;
             this->getComponent<Animator>()->setAnimation("RUN");
+            this->texture->setFlip("NONE");
 
         } else if (event.type == SDL_KEYUP) {
             this->getComponent<Velocity>()->x = 0.;

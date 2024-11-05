@@ -30,10 +30,26 @@ class Texture {
         void setXCrop(float from, float to);
         void setYCrop(float from, float to);
 
+        /**
+         * @brief Sets the flip type of the texture.
+         *
+         * This function configures the flip type of the texture based on the
+         * provided parameter. It accepts the following values:
+         * - "NONE": No flipping applied.
+         * - "HORIZONTAL": Horizontal flipping applied.
+         * - "VERTICAL": Vertical flipping applied.
+         *
+         * @param flipType The flip type to apply.
+         */
+        void setFlip(std::string flipType);
+
         void move(float x, float y);
 
 
     private:
         SDL_Texture *texture;
         SDL_Rect srcRect, dstRect;
+        double angle = 0;
+        /* SDL_Point center; */
+        SDL_RendererFlip flip = SDL_FLIP_NONE;
 };

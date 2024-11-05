@@ -3,6 +3,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_render.h>
 #include <Texture.hpp>
+#include <cstddef>
 #include <iostream>
 #include <string>
 
@@ -51,7 +52,8 @@ int Texture::load_from_file(
 }
 
 void Texture::render(){
-    SDL_RenderCopy(Game::renderer, texture, &srcRect, &dstRect);
+    /* SDL_RenderCopy(Game::renderer, texture, &srcRect, &dstRect); */
+    SDL_RenderCopyEx(Game::renderer, this->texture, &this->srcRect, &this->dstRect, this->angle, NULL, this->flip);
 }
 
 void Texture::update() {
@@ -83,4 +85,15 @@ void Texture::setXCrop(float from , float to) {
 void Texture::setYCrop(float from , float to) {
     this->srcRect.y = from;
     this->srcRect.h = to;
+}
+void Texture::setFlip(std::string flipType) {
+    if (flipType == "NONE") {
+        this->flip = SDL_FLIP_NONE;
+    } else if (flipType == "HORIZONTAL") {
+        this->flip = SDL_FLIP_HORIZONTAL;
+    } else if (flipType == "VERTICAL") {
+        this->flip = SDL_FLIP_VERTICAL;
+    } else {
+        throw std::invalid_argument("Invalid flip type: " + flipType);
+    }
 }
