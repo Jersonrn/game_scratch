@@ -23,7 +23,7 @@ int Player::initialize() {
     this->addComponent<Animator>();
     Animator* animator = this->getComponent<Animator>();
     animator->loadAnimationsFromJSON("res/anim/animationsPlayer.json");
-    animator->setAnimation("RUN");
+    animator->setAnimation("IDLE");
     this->addComponent<Render>();
 
     return 0;
@@ -36,19 +36,21 @@ void Player::handleInputEvents(const SDL_Event& event) {
     if (event.key.keysym.sym == SDLK_LEFT) {
         if (event.type == SDL_KEYDOWN) {
             this->getComponent<Velocity>()->x = -100.;
-            std::cout <<"vel: " << this->getComponent<Velocity>()->x << std::endl;
+            this->getComponent<Animator>()->setAnimation("RUN");
+
         } else if (event.type == SDL_KEYUP) {
             this->getComponent<Velocity>()->x = 0.;
-            std::cout <<"vel: " << this->getComponent<Velocity>()->x << std::endl;
+            this->getComponent<Animator>()->setAnimation("IDLE");
         }
 
     } else if (event.key.keysym.sym == SDLK_RIGHT) {
         if (event.type == SDL_KEYDOWN) {
             this->getComponent<Velocity>()->x = 100.;
-            std::cout <<"vel: " << this->getComponent<Velocity>()->x << std::endl;
+            this->getComponent<Animator>()->setAnimation("RUN");
+
         } else if (event.type == SDL_KEYUP) {
             this->getComponent<Velocity>()->x = 0.;
-            std::cout <<"vel: " << this->getComponent<Velocity>()->x << std::endl;
+            this->getComponent<Animator>()->setAnimation("IDLE");
         }
 
     }
