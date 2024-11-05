@@ -124,13 +124,15 @@ int Map::loadObjectsFromJSONFile(const std::string& fileName) {
     inputFile.close();
 
     for (const auto& obj : json.items()) {
-        for (size_t i = 0; i < obj.value()["dst"].size(); ++i) {
+        for (size_t i = 0; i < obj.value()["info"].size(); ++i) {
             std::shared_ptr<StaticObject> objStatic = std::make_shared<StaticObject>(
                     obj.value()["path"],
-                    obj.value()["dst"][i][0], obj.value()["dst"][i][1],
-                    obj.value()["dst"][i][2], obj.value()["dst"][i][3],
-                    obj.value()["src"][i][0], obj.value()["src"][i][1],
-                    obj.value()["src"][i][2], obj.value()["src"][i][3]
+                    //dst
+                    obj.value()["info"][i][0][0], obj.value()["info"][i][0][1],
+                    obj.value()["info"][i][0][2], obj.value()["info"][i][0][3],
+                    //src
+                    obj.value()["info"][i][1][0], obj.value()["info"][i][1][1],
+                    obj.value()["info"][i][1][2], obj.value()["info"][i][1][3]
             );
             this->objects.push_back(objStatic);
         }
@@ -139,13 +141,13 @@ int Map::loadObjectsFromJSONFile(const std::string& fileName) {
 }
 
 void Map::render(){
+    for (size_t i = 0; i < this->objects.size(); ++i) {
+        this->objects[i]->render();
+    }
+
     for (size_t y = 0; y < this->blocks.size(); ++y) {
         for (size_t x = 0 ; x < this->blocks[y].size(); ++x) {
             this->blocks[y][x]->render();
         }
-    }
-
-    for (size_t i = 0; i < this->objects.size(); ++i) {
-        this->objects[i]->render();
     }
 }
