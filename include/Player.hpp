@@ -1,4 +1,5 @@
 #include "Entity.hpp"
+#include <SDL2/SDL_events.h>
 
 
 
@@ -16,5 +17,5 @@ class Player: public Entity {
         int initialize();
         virtual ~Player();
 
-        void handleInputEvents(const SDL_KeyboardEvent& keyEvent) override;
+        void handleInputEvents(const SDL_Event& keyEvent) override;
 };

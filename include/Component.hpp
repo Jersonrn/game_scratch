@@ -82,7 +82,7 @@ class InputKey: public Component {
         InputKey(std::shared_ptr<Entity> entity);
         virtual ~InputKey();
 
-        virtual void update(const SDL_KeyboardEvent& keyEvent);
+        virtual void update(const SDL_Event& event);
 };
 
 class Animator: public Component {

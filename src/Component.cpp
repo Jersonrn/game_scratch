@@ -106,8 +106,8 @@ InputKey::InputKey(std::shared_ptr<Entity> entity)
 
 InputKey::~InputKey() {};
 
-void InputKey::update(const SDL_KeyboardEvent& keyEvent) {
-    this->entity->handleInputEvents(keyEvent);
+void InputKey::update(const SDL_Event& event) {
+    this->entity->handleInputEvents(event);
 };
 
 

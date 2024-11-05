@@ -89,16 +89,15 @@ void Game::handleEvents() {
             case SDL_KEYDOWN:
                 if (event.key.keysym.sym == SDLK_ESCAPE) {
                     this->isRunning = false;
-                } else {
-                    for (const auto& e : (*this->ptrArchetypes)[getComponentBitset<InputKey>()]) {
-                        e->getComponent<InputKey>()->update(event.key);
-                    };
-                }
+                } 
                 break;
 
             default:
                 break;
         }
+        for (const auto& e : (*this->ptrArchetypes)[getComponentBitset<InputKey>()]) {
+            e->getComponent<InputKey>()->update(event);
+        };
     }
 }
 

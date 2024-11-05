@@ -1,6 +1,7 @@
 #include <Entity.hpp>
 #include "Texture.hpp"
 #include "Utils.hpp"
+#include <SDL2/SDL_events.h>
 #include <cstddef>
 #include <iostream>
 #include <memory>
@@ -23,7 +24,7 @@ Entity::Entity(
 
 Entity::~Entity(){}
 
-void Entity::handleInputEvents(const SDL_KeyboardEvent& keyEvent) {};
+void Entity::handleInputEvents(const SDL_Event& keyEvent) {};
 
 std::size_t Entity::getID() { return this->ID; }
 

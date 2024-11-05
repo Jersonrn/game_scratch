@@ -1,4 +1,5 @@
 #include <Player.hpp>
+#include <SDL2/SDL_events.h>
 #include <SDL2/SDL_keycode.h>
 #include <iostream>
 
@@ -30,19 +31,25 @@ int Player::initialize() {
 
 Player::~Player() {}
 
-void Player::handleInputEvents(const SDL_KeyboardEvent& keyEvent) {
+void Player::handleInputEvents(const SDL_Event& event) {
     /* https://www.libsdl.org/release/SDL-1.2.15/docs/html/sdlkey.html */
-    if (keyEvent.keysym.sym == SDLK_LEFT) {
-        this->getComponent<Velocity>()->x = -100.;
-        std::cout << "vel: " << this->getComponent<Velocity>()->x << std::endl;
-    } else if (keyEvent.keysym.sym == SDLK_RIGHT) {
-        this->getComponent<Velocity>()->x = 100.;
-        std::cout << "vel: " << this->getComponent<Velocity>()->x << std::endl;
-    } else if (keyEvent.keysym.sym == SDLK_UP) {
-        this->getComponent<Velocity>()->y = -100.;
-        std::cout << "vel: " << this->getComponent<Velocity>()->y << std::endl;
-    } else if (keyEvent.keysym.sym == SDLK_DOWN) {
-        this->getComponent<Velocity>()->y =100.;
-        std::cout << "vel: " << this->getComponent<Velocity>()->y << std::endl;
+    if (event.key.keysym.sym == SDLK_LEFT) {
+        if (event.type == SDL_KEYDOWN) {
+            this->getComponent<Velocity>()->x = -100.;
+            std::cout <<"vel: " << this->getComponent<Velocity>()->x << std::endl;
+        } else if (event.type == SDL_KEYUP) {
+            this->getComponent<Velocity>()->x = 0.;
+            std::cout <<"vel: " << this->getComponent<Velocity>()->x << std::endl;
+        }
+
+    } else if (event.key.keysym.sym == SDLK_RIGHT) {
+        if (event.type == SDL_KEYDOWN) {
+            this->getComponent<Velocity>()->x = 100.;
+            std::cout <<"vel: " << this->getComponent<Velocity>()->x << std::endl;
+        } else if (event.type == SDL_KEYUP) {
+            this->getComponent<Velocity>()->x = 0.;
+            std::cout <<"vel: " << this->getComponent<Velocity>()->x << std::endl;
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "Texture.hpp"
+#include <SDL2/SDL_events.h>
 #include <cstddef>
 #include <iostream>
 #include <memory>
@@ -37,7 +38,7 @@ class Entity: public std::enable_shared_from_this<Entity> {
         );
         virtual ~Entity();
 
-        void virtual handleInputEvents(const SDL_KeyboardEvent& keyEvent);
+        void virtual handleInputEvents(const SDL_Event& keyEvent);
 
         std::size_t getID();
         bool isActive();
