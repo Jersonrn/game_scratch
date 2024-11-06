@@ -1,3 +1,4 @@
+#include "Utils.hpp"
 #include <Entity.hpp>
 #include <Component.hpp>
 #include <SDL2/SDL_events.h>
@@ -11,7 +12,6 @@
 
 #include <json.hpp>
 #include <fstream>
-using json = nlohmann::json;
 
 
 Component::Component(std::shared_ptr<Entity> entity)
@@ -173,16 +173,7 @@ void Animator::nextFrame() {
 }
 
 int Animator::loadAnimationFromJSON(const std::string& path, const std::string& name) {
-    std::ifstream inputFile(path);
-    if (!inputFile.is_open()) {
-        std::cerr << "Eror opening " << path << "file." << std::endl;
-        return 1;
-    }
-
-    // Parse JSON file
-    nlohmann::json json;
-    inputFile >> json;
-    inputFile.close();
+    nlohmann::json json = loadJSONFile(path);
 
     for (const auto& row : json[name]) {
         std::vector<int> innerVec = row.get<std::vector<int>>();
@@ -193,16 +184,7 @@ int Animator::loadAnimationFromJSON(const std::string& path, const std::string& 
 };
 
 int Animator::loadAnimationsFromJSON(const std::string& path) {
-    std::ifstream inputFile(path);
-    if (!inputFile.is_open()) {
-        std::cerr << "Eror opening " << path << "file." << std::endl;
-        return 1;
-    }
-
-    // Parse JSON file
-    nlohmann::json json;
-    inputFile >> json;
-    inputFile.close();
+    nlohmann::json json = loadJSONFile(path);
 
     for (const auto& item: json.items()) {
         this->loadAnimationFromJSON(path, item.key());
