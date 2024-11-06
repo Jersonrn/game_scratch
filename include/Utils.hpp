@@ -1,8 +1,10 @@
 #pragma once
+#include "json.hpp"
 #include <bitset>
 #include <cstddef>
 #include <iostream>
 #include <memory>
+#include <string>
 #include <unordered_map>
 #include <vector>
 #ifndef UTILS_H
@@ -50,6 +52,8 @@ getComponentBitset() {
 
     return bitset;
 };
+
+nlohmann::json loadJSONFile(const std::string& path);
 
 #endif
 

@@ -2,6 +2,7 @@
 #include "GameObject.hpp"
 #include "StaticObject.hpp"
 #include "Texture.hpp"
+#include "Utils.hpp"
 #include <Map.hpp>
 #include <cctype>
 #include <cstddef>
@@ -112,16 +113,7 @@ void Map::spawnBlocks() {
 }
 
 int Map::loadObjectsFromJSONFile(const std::string& fileName) {
-    std::ifstream inputFile(fileName);
-    if (!inputFile.is_open()) {
-        std::cerr << "Eror opening " << fileName << "file." << std::endl;
-        return 1;
-        //
-    }
-    // Parse JSON file
-    nlohmann::json json;
-    inputFile >> json;
-    inputFile.close();
+    nlohmann::json json = loadJSONFile(fileName);
 
     for (const auto& obj : json.items()) {
         for (size_t i = 0; i < obj.value()["info"].size(); ++i) {
