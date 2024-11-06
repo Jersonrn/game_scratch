@@ -11,7 +11,7 @@ class Map {
     public:
         Map();
         ~Map();
-        int loadFromFile(const std::string &fileName);
+        int loadBlocksFromFile(const std::string &fileName);
         void spawnBlocks();
 
         int loadObjectsFromJSONFile(const std::string& fileName);

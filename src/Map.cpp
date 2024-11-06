@@ -25,7 +25,7 @@ Map::~Map() {
     /* } */
 }
 
-int Map::loadFromFile(const std::string &fileName) {
+int Map::loadBlocksFromFile(const std::string &fileName) {
     std::ifstream file(fileName);
 
     if (!file) {
