@@ -57,7 +57,7 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
 
         this->map = new Map();
         this->map->loadBlocksFromFile("res/map/map.txt");
-        this->map->loadObjectsFromJSONFile("res/map/objs.json");
+        this->map->loadObjectsFromJSONFile("res/map/props.json");
 
         this->movementSystem = std::make_unique<MovementSystem>(this->ptrArchetypes);
 

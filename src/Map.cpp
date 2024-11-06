@@ -126,15 +126,15 @@ int Map::loadObjectsFromJSONFile(const std::string& fileName) {
                     obj.value()["info"][i][1][0], obj.value()["info"][i][1][1],
                     obj.value()["info"][i][1][2], obj.value()["info"][i][1][3]
             );
-            this->objects.push_back(objStatic);
+            this->props.push_back(objStatic);
         }
     }
     return 0;
 }
 
 void Map::render(){
-    for (size_t i = 0; i < this->objects.size(); ++i) {
-        this->objects[i]->render();
+    for (size_t i = 0; i < this->props.size(); ++i) {
+        this->props[i]->render();
     }
 
     for (size_t y = 0; y < this->blocks.size(); ++y) {

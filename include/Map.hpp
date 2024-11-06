@@ -22,6 +22,6 @@ class Map {
         std::vector<std::vector<int>> blockGrid;
         std::vector<std::vector<std::shared_ptr<StaticObject>>> blocks;
 
-        std::vector<std::shared_ptr<StaticObject>> objects;
+        std::vector<std::shared_ptr<StaticObject>> props;
 };
 
