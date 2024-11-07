@@ -112,11 +112,12 @@ void Map::spawnBlocks() {
     }
 }
 
-int Map::loadObjectsFromJSONFile(const std::string& fileName) {
+int Map::loadObjectsFromJSONFile(const std::string& fileName, std::vector<std::shared_ptr<StaticObject>>& container) {
     nlohmann::json json = loadJSONFile(fileName);
 
     for (const auto& obj : json.items()) {
         for (size_t i = 0; i < obj.value()["info"].size(); ++i) {
+            std::cout << obj.value()["path"] << std::endl;
             std::shared_ptr<StaticObject> objStatic = std::make_shared<StaticObject>(
                     obj.value()["path"],
                     //dst
@@ -126,13 +127,17 @@ int Map::loadObjectsFromJSONFile(const std::string& fileName) {
                     obj.value()["info"][i][1][0], obj.value()["info"][i][1][1],
                     obj.value()["info"][i][1][2], obj.value()["info"][i][1][3]
             );
-            this->props.push_back(objStatic);
+            container.push_back(objStatic);
         }
     }
     return 0;
 }
 
 void Map::render(){
+    for (size_t i = 0; i < this->environment.size(); ++i) {
+        this->environment[i]->render();
+    }
+
     for (size_t i = 0; i < this->props.size(); ++i) {
         this->props[i]->render();
     }
@@ -143,3 +148,4 @@ void Map::render(){
         }
     }
 }
+

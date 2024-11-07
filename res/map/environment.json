@@ -1,0 +1,48 @@
+{
+    "cloud_1": {
+        "path": "res/background/cloud_1.webp",
+        "info": [
+            [[200, 0, 128, 128],[0, 0, -1, -1]],
+            [[350, 150, 180, 180],[0, 0, -1, -1]],
+            [[1000, 0, 180, 180],[0, 0, -1, -1]]
+        ]
+    },
+    "cloud_2": {
+        "path": "res/background/cloud_2.webp",
+        "info": [
+            [[570, 100, 256, 256],[0, 0, -1, -1]],
+            [[800, 300, 358, 358],[0, 0, -1, -1]],
+            [[0, 300, 358, 358],[0, 0, -1, -1]]
+        ]
+    },
+    "cloud_3": {
+        "path": "res/background/cloud_3.webp",
+        "info": [
+            [[800, 350, 128, 128],[0, 0, -1, -1]],
+            [[500, 320, 180, 180],[0, 0, -1, -1]]
+        ]
+    },
+
+
+
+    "z_distant_platforms_1": {
+        "path": "res/background/distant_platforms_1.webp",
+        "info": [
+            [[110, 400, 762, 256],[0, 0, -1, -1]]
+        ]
+    },
+    "y_distant_platforms_2": {
+        "path": "res/background/distant_platforms_2.webp",
+        "info": [
+            [[450, 400, 762, 256],[0, 0, -1, -1]]
+        ]
+    },
+
+
+    "a_sky": {
+        "path": "res/background/sky.webp",
+        "info": [
+            [[0, 0, 2867, 716],[0, 0, -1, -1]]
+        ]
+    }
+}
