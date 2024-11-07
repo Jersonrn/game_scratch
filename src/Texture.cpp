@@ -68,12 +68,9 @@ float Texture::getYScale() const { return dstRect.h; }
 // setters
 void Texture::setXPosition(float x) { this->dstRect.x = x; }
 void Texture::setYPosition(float y) { this->dstRect.y = y; }
-void Texture::setXScale(float x) {
-    this->dstRect.w = this->srcRect.w * x;
-}
-void Texture::setYScale(float y) {
-    this->dstRect.h = this->srcRect.h * y;
-}
+void Texture::setXScale(float x) { this->dstRect.w = this->srcRect.w * x; }
+void Texture::setYScale(float y) { this->dstRect.h = this->srcRect.h * y; }
+
 void Texture::move(float x, float y) {
     this->dstRect.x += x;
     this->dstRect.y += y;

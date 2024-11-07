@@ -11,16 +11,19 @@ GameObject::GameObject(
         float xPos, float yPos,
         float xScale_, float yScale_,
         int srcRectX, int srcRectY, int srcRectW, int srcRectH )
-    : texture(nullptr),
-    xPosition(xPos), yPosition(yPos),
-    xScale(xScale_), yScale(yScale_) {
+    : texture(nullptr) {
 
         if (!Game::renderer) {
             std::cerr << "Renderer is null" << std::endl;
         }
 
         texture = new Texture();
-        texture->load_from_file(pathFile, srcRectX, srcRectY, srcRectW, srcRectH, this->xPosition, this->yPosition, srcRectW * xScale_, srcRectH * yScale_);
+        texture->load_from_file(
+                pathFile,
+                srcRectX, srcRectY, srcRectW, srcRectH,
+                /* xPos, yPos, srcRectW * xScale_, srcRectH * yScale_ */
+                xPos, yPos, xScale_, yScale_
+        );
 
 }
 
@@ -38,26 +41,22 @@ void GameObject::render() {
 
 
 // getters
-float GameObject::getXPosition() const { return xPosition; }
-float GameObject::getYPosition() const { return yPosition; }
-float GameObject::getXScale() const { return xScale; }
-float GameObject::getYScale() const { return yScale; }
+float GameObject::getXPosition() const { return this->texture->getXPosition(); }
+float GameObject::getYPosition() const { return this->texture->getYPosition(); }
+float GameObject::getXScale() const { return this->texture->getXScale(); }
+float GameObject::getYScale() const { return this->texture->getYScale(); }
 
 // setters
 void GameObject::setXPosition( float x ) {
-    this->xPosition = x;
     this->texture->setXPosition(x);
 }
 void GameObject::setYPosition( float y ) {
-    this->yPosition = y;
     this->texture->setYPosition(y);
 }
 void GameObject::setXScale( float x ) {
-    this->xScale = x;
     this->texture->setXScale(x);
 }
 void GameObject::setYScale( float y ) {
-    this->yScale = y;
     this->texture->setYScale(y);
 }
 
@@ -70,7 +69,5 @@ void GameObject::setScale(float x, float y) {
     this->setYScale(y);
 }
 void GameObject::move(float x, float y) {
-    this->xPosition += x;
-    this->yPosition += y;
     this->texture->move(x, y);
 }

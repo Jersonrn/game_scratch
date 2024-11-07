@@ -64,8 +64,8 @@ void Map::spawnBlocks() {
             // args
             float xPos = x * 64;
             float yPos = y * 64;
-            float xScale = 1;
-            float yScale = 1;
+            float xScale = 64;
+            float yScale = 64;
             float srcRectX;
             float srcRectY;
             float srcRectW = 64;

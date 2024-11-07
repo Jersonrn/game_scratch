@@ -38,8 +38,4 @@ class GameObject {
         /* std::shared_ptr<Texture> texture; */
         Texture *texture = nullptr;
 
-        float xPosition;
-        float yPosition;
-        float xScale;
-        float yScale;
 };
