@@ -16,10 +16,10 @@ Player::Player(
 
 int Player::initialize() {
     this->addComponent<Sprite>("res/robot.webp", 0, 0, 64, 64);
-    this->addComponent<Velocity>(0., 0.);
-    this->addComponent<Position>(200., 525.);
+    this->addComponent<Velocity>(0., 100.);
+    this->addComponent<Position>(200., 500.);
     this->addComponent<Scale>(1., 1.);
-    this->addComponent<Collision>(100, 200, 64, 64);
+    this->addComponent<Collision>(10, 0, 45, 64);
     this->addComponent<InputKey>();
     this->addComponent<Animator>();
     Animator* animator = this->getComponent<Animator>();

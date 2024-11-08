@@ -54,6 +54,11 @@ class Scale: public Component {
 };
 
 class Collision: public Component {
+    private:
+        int xOffset;
+        int yOffset;
+        int width;
+        int height;
     public:
         SDL_Rect colRect;
 

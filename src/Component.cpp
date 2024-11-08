@@ -61,17 +61,17 @@ Scale::~Scale() {};
 
 //COLLISION
 Collision::Collision(std::shared_ptr<Entity> entity,int x, int y, int w,int h)
-    : Component(entity) {
-        this->colRect = { x, y, w, h };
+    : Component(entity), xOffset(x), yOffset(y), width(w), height(h) {
+        this->colRect = { this->xOffset, this->yOffset, this->width, this->height };
     };
 
 Collision::~Collision() {};
 
 void Collision::update() {
-    int x = this->entity->texture->getXPosition();
-    int y = this->entity->texture->getYPosition();
-    int w = this->entity->texture->getXScale();
-    int h = this->entity->texture->getYScale();
+    int x = this->entity->texture->getXPosition() + this->xOffset;
+    int y = this->entity->texture->getYPosition() + this->yOffset;
+    int w = this->width;
+    int h = this->height;
 
     this->colRect = {x, y, w, h};
 };
