@@ -1,4 +1,5 @@
 #pragma once
+#include "Entity.hpp"
 #include "GameObject.hpp"
 #include <memory>
 #include <string>
@@ -19,11 +20,22 @@ class Map {
 
         int loadObjectsFromJSONFile(const std::string& fileName, std::vector<std::shared_ptr<StaticObject>>& container);
 
+        int loadCollisionFromJSONFile(
+                const std::string& fileName,
+                std::shared_ptr<std::unordered_map<
+                    ComponentBitset,
+                    std::vector<std::shared_ptr<Entity>>,
+                    BitsetHash
+                >> ptrArchetypes
+        );
+
         void render();
 
     private:
         std::vector<std::vector<int>> blockGrid;
         std::vector<std::vector<std::shared_ptr<StaticObject>>> blocks;
+
+        std::vector<std::shared_ptr<Entity>> colBlocks;
 
 };
 

@@ -117,7 +117,6 @@ int Map::loadObjectsFromJSONFile(const std::string& fileName, std::vector<std::s
 
     for (const auto& obj : json.items()) {
         for (size_t i = 0; i < obj.value()["info"].size(); ++i) {
-            std::cout << obj.value()["path"] << std::endl;
             std::shared_ptr<StaticObject> objStatic = std::make_shared<StaticObject>(
                     obj.value()["path"],
                     //dst
@@ -130,6 +129,31 @@ int Map::loadObjectsFromJSONFile(const std::string& fileName, std::vector<std::s
             container.push_back(objStatic);
         }
     }
+    return 0;
+}
+int Map::loadCollisionFromJSONFile(
+        const std::string& fileName,
+        std::shared_ptr<std::unordered_map<
+            ComponentBitset,
+            std::vector<std::shared_ptr<Entity>>,
+            BitsetHash
+        >> ptrArchetypes
+) {
+    nlohmann::json json = loadJSONFile(fileName);
+
+    for (const auto& obj : json.items()) {
+        for (size_t i = 0; i < obj.value()["info"].size(); ++i) {
+            std::shared_ptr<Entity> colEntity = std::make_shared<Entity>(ptrArchetypes);
+            /* colEntity->addComponent<Position>(100, 100); */
+            /* colEntity->addComponent<Scale>(1., 1.); */
+            colEntity->addComponent<Collision>(
+                    obj.value()["info"][i][0], obj.value()["info"][i][1],
+                    obj.value()["info"][i][2], obj.value()["info"][i][3]
+            );
+            this->colBlocks.push_back(colEntity);
+        }
+    }
+
     return 0;
 }
 

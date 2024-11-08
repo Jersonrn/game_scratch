@@ -56,9 +56,10 @@ int Game::init(const char *title, int x, int y, int width, int height, bool full
         this->tiles->load_from_file("res/tiles.webp");
 
         this->map = new Map();
+        this->map->loadObjectsFromJSONFile("res/map/environment.json", this->map->environment);
         this->map->loadBlocksFromFile("res/map/map.txt");
         this->map->loadObjectsFromJSONFile("res/map/props.json", this->map->props);
-        this->map->loadObjectsFromJSONFile("res/map/environment.json", this->map->environment);
+        this->map->loadCollisionFromJSONFile("res/map/collision.json", this->ptrArchetypes);
 
         this->movementSystem = std::make_unique<MovementSystem>(this->ptrArchetypes);
 
