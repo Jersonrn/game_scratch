@@ -31,6 +31,8 @@ class Velocity: public Component {
 };
 
 class Position: public Component {
+    private:
+        float x, y;
     public:
         Position(std::shared_ptr<Entity> entity, float x, float y);
         virtual ~Position();

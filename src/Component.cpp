@@ -30,18 +30,24 @@ Velocity::~Velocity() {};
 
 //POSITION
 Position::Position(std::shared_ptr<Entity> entity,float x, float y)
-    : Component(entity) {
-        this->entity->texture->setXPosition(x);
-        this->entity->texture->setYPosition(y);
+    : Component(entity), x(x), y(y) {
+        this->entity->texture->setXPosition(this->x);
+        this->entity->texture->setYPosition(this->y);
     };
 
 Position::~Position() {};
 
-float Position::getX() { return this->entity->texture->getXPosition(); }
-float Position::getY() { return this->entity->texture->getYPosition(); }
+float Position::getX() { return this->x; }
+float Position::getY() { return this->y; }
 
-void Position::setX(float x) { this->entity->texture->setXPosition(x); };
-void Position::setY(float y) { this->entity->texture->setYPosition(y); };
+void Position::setX(float x) {
+    this->x = x;
+    this->entity->texture->setXPosition(this->x);
+};
+void Position::setY(float y) {
+    this->y = y;
+    this->entity->texture->setYPosition(this->y);
+};
 
 void Position::update(float x, float y) {
     this->entity->texture->setXPosition(x);

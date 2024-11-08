@@ -17,8 +17,8 @@ Enemy::Enemy(
 
 int Enemy::initialize() {
     this->addComponent<Sprite>("res/enemy.webp", 0, 0, 128, 128);
-    this->addComponent<Velocity>(-65., 100.);
-    this->addComponent<Position>(1000., 450.);
+    this->addComponent<Velocity>(-40., 100.);
+    this->addComponent<Position>(1000., 480.);
     this->addComponent<Scale>(1., 1.);
     this->addComponent<Collision>(30, 30, 64,60);
     this->addComponent<Animator>();
