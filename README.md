@@ -2,6 +2,9 @@
 
 A simple game developed using SDL2 as a personal project to learn C++.
 
+![2024-11-08_19-59](https://github.com/user-attachments/assets/5502c795-0a48-4bac-8f66-24c6e27cc98d)
+
+
 ## Features
 
 This game includes the following features:
