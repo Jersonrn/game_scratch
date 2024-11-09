@@ -30,7 +30,7 @@ To run the game, ensure you have SDL2 installed on your system. Follow these ste
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/Jersonrn/GameFromScratch.git
+   git clone https://github.com/Jersonrn/game_scratch
 
 2. **Navigate to the project directory:**
    ```bash
