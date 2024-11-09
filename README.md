@@ -34,7 +34,7 @@ To run the game, ensure you have SDL2 installed on your system. Follow these ste
 
 2. **Navigate to the project directory:**
    ```bash
-   cd GameFromScratch
+   cd game_scratch
 
 3. **Compile the project**
    ```bash
